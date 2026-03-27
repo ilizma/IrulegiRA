@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irulegi - dos tiempos, dos guerras</title>
+    <style>@import url("style.css?v=11.0");</style>
+</head>
+<body>
+    <div class="container">
+        <h1>IRULEGI</h1>
+        <p class="subtitle">DOS TIEMPOS, DOS GUERRAS</p>
+        
+        <div class="button-container">
+            <button class="ar-button" onclick="startAR('fort')">
+                <img src="images/img_fort.png" alt="Fort icon" class="button-img">
+                <span>Castro / Kastro</span>
+            </button>
+            <button class="ar-button" onclick="startAR('castle')">
+                <img src="images/img_castle.png" alt="Castle icon" class="button-img">
+                <span>Castillo / Gaztelu</span>
+            </button>
+            <button class="ar-button" onclick="window.location.href='objects.html'">
+                <img src="images/img_objects.png" alt="Objects icon" class="button-img">
+                <span>Objetos / Objektuak</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- An invisible but present AR viewer -->
+    <model-viewer 
+        id="ar-viewer"
+        src="" 
+        ar 
+        ar-modes="webxr quick-look" 
+        style="width: 1px; height: 1px; opacity: 0; position: absolute; pointer-events: none;">
+    </model-viewer>
+
+    <!-- Customised modal for alerts -->
+    <div id="custom-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon">⚠️</div>
+            <p id="modal-message"></p>
+            <button onclick="closeModal()" class="modal-btn">Ok</button>
+        </div>
+    </div>
+
+    <footer class="logos-footer">
+        <img src="images/logos.png" alt="Logos institucionales" class="footer-image">
+        <p class="grant-text">Esta iniciativa ha contado con una subvención enmarcada en el Plan de Recuperación, Transformación y Resiliencia - Financiado por la Unión Europea-NextGeneration EU, dentro del Plan de Sostenibilidad Turística en Destino Comarca Pamplona Rural.</p>
+    </footer>
+    <script src="script.js?v=11.0"></script>
+</body>
+</html>

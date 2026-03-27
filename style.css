@@ -1,0 +1,265 @@
+:root {
+    --primary-color: #FFFFFF;
+    --bg-color: #9d6d6d;
+    --text-color: #FFFFFF;
+    --btn-bg: #FFFFFF;
+    --btn-shadow: rgba(0, 0, 0, 0.2);
+}
+
+@font-face {
+    font-family: 'FuturaBook';
+    src: url('fonts/FuturaBook.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Futura';
+    src: url('fonts/Futura.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'FuturaBook', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+/Edge */
+    user-select: none;         /* Standard */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100dvh;
+    padding: 20px;
+    position: relative;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.logos-footer {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 40px;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer-image {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+.grant-text {
+    font-family: 'Futura', sans-serif;
+    font-size: 0.65rem;
+    line-height: 1.2;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 auto;
+    max-width: 90%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.button-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+@media (min-width: 600px) {
+    .button-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.ar-button {
+    background: var(--btn-bg);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 20px 15px;
+    box-shadow: 0 4px 15px var(--btn-shadow);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #000000;
+}
+
+.ar-button:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.button-img {
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+    margin-bottom: 5px;
+}
+
+.ar-button span {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.detail-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+.detail-img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+.description {
+    font-family: 'FuturaBook', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: white;
+    text-align: justify;
+}
+
+.description p {
+    margin-bottom: 1.2rem;
+}
+
+.description p:last-child {
+    margin-bottom: 0;
+}
+
+.ar-trigger-btn {
+    background: #FFFFFF;
+    color: #000000;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-family: 'FuturaBook', sans-serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+.ar-trigger-btn:active {
+    transform: scale(0.95);
+}
+.nav-buttons {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.back-link {
+    color: white;
+    text-decoration: none;
+    font-family: 'FuturaBook', sans-serif;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    display: inline-block;
+    padding: 15px 25px;
+    margin-top: -10px;
+}
+
+/* Custom modal */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 25px;
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: modalScale 0.3s ease-out;
+}
+
+@keyframes modalScale {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+#modal-message {
+    color: #333;
+    font-family: 'FuturaBook', sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.modal-btn {
+    background: #9d6d6d;
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 30px;
+    font-family: 'FuturaBook', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.modal-btn:active {
+    transform: scale(0.95);
+}
+
+model-viewer {
+    width: 100%;
+    height: 100%;
+}

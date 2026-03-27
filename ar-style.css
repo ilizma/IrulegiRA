@@ -1,0 +1,49 @@
+body { margin: 0; overflow: hidden; }
+
+.ui-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.back-btn {
+    pointer-events: auto;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    backdrop-filter: blur(5px);
+}
+
+.scanning-hint {
+    text-align: center;
+    color: white;
+    font-family: sans-serif;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* Ocultar el logo de MindAR */
+.mindar-ui-scanning, .mindar-ui-loading {
+    font-family: sans-serif !important;
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irulegi - detalle</title>
+    <style>@import url("style.css?v=11.0");</style>
+</head>
+<body>
+    <div class="container">
+        <div class="detail-container">
+            <h1 id="detail-title">Cargando...</h1>
+            <img id="detail-icon" src="" alt="Icono" class="detail-img">
+            <div id="detail-description" class="description">
+                <!-- The description will be loaded dynamically -->
+            </div>
+            
+            <button id="activate-ar-btn" class="ar-trigger-btn">VER EN REALIDAD AUMENTADA</button>
+            
+            <div class="nav-buttons">
+                <a href="objects.html" class="back-link">← Volver</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- An invisible but present AR viewer -->
+    <model-viewer 
+        id="ar-viewer"
+        src="" 
+        ar 
+        ar-modes="webxr quick-look" 
+        camera-controls
+        ar-scale="auto"
+        style="width: 1px; height: 1px; opacity: 0; position: absolute; pointer-events: none;">
+    </model-viewer>
+
+    <!-- Customised modal for alerts -->
+    <div id="custom-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon">⚠️</div>
+            <p id="modal-message"></p>
+            <button onclick="closeModal()" class="modal-btn">Ok</button>
+        </div>
+    </div>
+
+    <footer class="logos-footer">
+        <img src="images/logos.png" alt="Logos institucionales" class="footer-image">
+        <p class="grant-text">Esta iniciativa ha contado con una subvención enmarcada en el Plan de Recuperación, Transformación y Resiliencia - Financiado por la Unión Europea-NextGeneration EU, dentro del Plan de Sostenibilidad Turística en Destino Comarca Pamplona Rural.</p>
+    </footer>
+
+    <script src="script-google.js?v=2.0"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const modelId = params.get('model');
+            
+            const content = {
+                'objeto1': {
+                    title: 'Fragmento de brazalete de vidrio',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Este fragmento de brazalete de vidrio formó parte de un adorno personal utilizado por los habitantes del poblado de Irulegi hace más de dos mil años. Los brazaletes eran objetos visibles y valorados, asociados al cuidado de la apariencia y a la identidad social de quienes los llevaban. El uso del vidrio, un material relativamente delicado y elaborado, indica la existencia de redes de intercambio y de conocimientos técnicos especializados, ya que su producción requería altas temperaturas y cierta destreza artesanal.',
+                        'En el día a día del poblado, piezas como esta acompañaban a sus propietarios en tareas cotidianas: trabajar en los campos cercanos, cuidar del ganado o participar en reuniones comunitarias dentro de las viviendas. No era solo un elemento decorativo; también podía reflejar prestigio, pertenencia a un grupo familiar o el acceso a bienes procedentes de otras regiones.',
+                        'El hallazgo de este brazalete en el contexto del castro nos habla de una comunidad activa, conectada con su entorno y con otros territorios. También nos recuerda que, más allá de la guerra y la destrucción que provocaron el abandono del asentamiento, la vida en Irulegi estuvo marcada durante generaciones por gestos cotidianos, relaciones sociales y pequeños objetos personales como este, que formaban parte de la vida diaria de sus habitantes.'
+                    ]
+                },
+                'objeto2': {
+                    title: 'Ficha de cerámica',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Esta pequeña ficha de cerámica es un objeto sencillo, pero lleno de significado. Se trata de un disco elaborado a partir de un fragmento de vasija reutilizado, cuidadosamente recortado y adaptado para un nuevo uso. Este tipo de piezas aparece con frecuencia en asentamientos de la Edad del Hierro y suele interpretarse como elemento de juego, de conteo o de control en actividades cotidianas, lo que refleja una sociedad organizada y con necesidades prácticas en su vida diaria',
+                        'Objetos como esta ficha pudieron emplearse en distintos contextos. Podían servir para llevar la cuenta de productos almacenados, como cereales o animales, o formar parte de juegos y actividades de ocio dentro del hogar. En una comunidad donde el trabajo agrícola, ganadero y artesanal estructuraba el ritmo del año, herramientas simples como esta ayudaban a organizar tareas, intercambios y relaciones sociales.',
+                        'La presencia de una ficha de cerámica también nos recuerda que la vida en el castro no estaba compuesta solo por labores productivas o episodios de conflicto. Había momentos de descanso, aprendizaje y convivencia, en los que niños y adultos compartían espacios y actividades. Este pequeño objeto, aparentemente humilde, nos habla así de la dimensión más humana del asentamiento: la necesidad de contar, de jugar y de dar orden a la vida cotidiana dentro de una comunidad estable y bien organizada.'
+                    ]
+                },
+                'objeto3': {
+                    title: 'Piedra de alisar',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Esta piedra de alisar es una herramienta sencilla pero esencial en la vida cotidiana. Su superficie lisa y resistente permitía trabajar distintos materiales, especialmente la cerámica, ayudando a alisar y compactar las paredes de los recipientes antes de su cocción. Gracias a este proceso, las vasijas se volvían más resistentes y aptas para almacenar alimentos, transportar líquidos o cocinar al fuego.',
+                        'En el interior de las viviendas del castro, la elaboración de cerámica era una actividad habitual, desarrollada en el ámbito doméstico. Las manos expertas moldeaban el barro, mientras herramientas como esta piedra perfeccionaban su forma y acabado. Cada recipiente fabricado era indispensable para la vida diaria: en ellos se guardaban cereales, se preparaban comidas o se conservaban productos durante el invierno. Así, esta pequeña herramienta formaba parte de una cadena de tareas que garantizaban la subsistencia de la comunidad.',
+                        'La presencia de una piedra de alisar en el yacimiento muestra también el conocimiento técnico de sus habitantes y la importancia del trabajo artesanal en la economía del poblado. Nos habla de personas que dominaban habilidades transmitidas de generación en generación y que, mediante gestos repetidos y precisos, transformaban materias primas en objetos útiles. Este tipo de herramientas nos acerca a la realidad cotidiana del castro: un lugar donde la producción doméstica y la colaboración familiar eran fundamentales para la vida de la comunidad.'
+                    ]
+                },
+                'objeto4': {
+                    title: 'Fragmento de molino de piedra circular',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Este fragmento de molino de piedra circular perteneció a una de las herramientas más importantes para la vida diaria en el poblado: el molino manual utilizado para transformar el grano en harina. Formado por dos piedras superpuestas, el molino permitía triturar cereales como trigo o cebada mediante un movimiento giratorio constante. El desgaste visible en su superficie es la huella directa de ese trabajo repetido durante años.',
+                        'En las viviendas del castro, la molienda era una tarea cotidiana y esencial. Preparar harina significaba garantizar el alimento básico de la comunidad, ya fuera en forma de panes, gachas o tortas cocidas sobre el fuego. Esta actividad solía desarrollarse en el interior del hogar o en sus inmediaciones, y requería tiempo, esfuerzo y coordinación. El sonido rítmico de la piedra girando sobre otra formaba parte del ambiente habitual del poblado, especialmente en los momentos previos a la preparación de las comidas.',
+                        'La presencia de molinos en el yacimiento nos habla de una economía basada en la agricultura y en el almacenamiento de alimentos, capaz de sostener a una comunidad estable. También refleja la importancia del trabajo doméstico y de la organización familiar en la supervivencia del grupo. Este fragmento, aparentemente simple, es en realidad el testimonio material de una actividad diaria que permitió a los habitantes de Irulegi alimentarse, crecer y mantenerse como comunidad a lo largo del tiempo.'
+                    ]
+                },
+                'objeto5': {
+                    title: 'Punta de lanza',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Esta punta de lanza es un objeto asociado a la defensa y a la actividad guerrera de los habitantes del castro. Fabricada en metal y diseñada para ser fijada a un asta de madera, la lanza era una de las armas más comunes en las comunidades de la Edad del Hierro. Su forma permitía atacar a distancia corta, arrojarse y también servía como herramienta de vigilancia y protección del territorio.',
+                        'En un asentamiento situado en una posición estratégica como Irulegi, la preparación para el conflicto formaba parte de la vida cotidiana. Los hombres adultos podían participar en tareas de defensa, patrullar los alrededores o responder a amenazas externas. La presencia de armas en el poblado refleja un contexto histórico en el que las comunidades debían proteger sus recursos, sus familias y sus rutas de comunicación. No se trataba solo de la guerra, sino de la necesidad constante de estar preparados.',
+                        'El hallazgo de esta punta de lanza cobra un significado especial si se tiene en cuenta que el poblado fue destruido violentamente en el siglo I a.C., probablemente en el contexto de conflictos que afectaron a toda la región. Las excavaciones han documentado incendios y abandonos repentinos, señales de un episodio traumático que puso fin a la vida en el castro. Esta pieza, por tanto, no es solo un arma: es el testimonio de un momento de tensión y de defensa, y nos recuerda que la historia de Irulegi estuvo marcada tanto por la vida cotidiana como por la amenaza bélica.'
+                    ] 
+                },
+                'objeto6': {
+                    title: 'Mano de Irulegi',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'La llamada Mano de Irulegi es una pieza excepcional dentro de la arqueología europea y una de las piezas más emblemáticas de la arqueología navarra reciente. Se trata de una lámina de bronce con forma de mano derecha extendida, datada en el siglo I a.C., que fue hallada en la entrada de una vivienda del poblado. Durante su restauración se descubrió en su superficie una inscripción realizada con un sistema de escritura anterior al alfabeto latino, lo que convirtió este objeto en un hallazgo de enorme importancia histórica.',
+                        'La lectura completa de la inscripción sigue siendo compleja para los especialistas. Aunque se ha podido identificar con seguridad la primera palabra y reconocer el sistema de escritura utilizado, el resto del texto presenta dificultades de interpretación y continúa siendo objeto de estudio por parte de lingüistas e historiadores. Por el momento, no existe un consenso definitivo sobre su significado exacto, lo que convierte a la Mano de Irulegi en una pieza abierta a nuevas investigaciones y descubrimientos en el futuro.',
+                        'Se trata de una pieza muy singular, ya que apenas existen objetos similares en el registro arqueológico. Se conocen algunos ejemplos de manos metálicas en otros yacimientos, como la hallada en el poblado del Puyalcalá de Alcubierre (Huesca) o representaciones en lugares como La Vispesa y El Palao, aunque presentan diferencias en tamaño, material o estilo. También se han comparado con ciertas téseras de hospitalidad en forma de mano, pero estas suelen ser más robustas y formar parte de objetos dobles o complementarios. En general, estos paralelos sugieren que la mano pudo tener un valor simbólico o protector, relacionado con creencias y rituales, o también con el mundo bélico o la violencia, cercana en simbología a las prácticas rituales de trofeos de guerra.',
+                        'Más allá de su función concreta, la Mano de Irulegi ha transformado el conocimiento sobre los antiguos vascones. Su inscripción demuestra que estas comunidades utilizaban la escritura en su propia lengua antes de la llegada de Roma, lo que confirma la existencia de un sistema gráfico propio en funcionamiento en esa época.',
+                        'Este objeto nos habla de una sociedad compleja, que combinaba la vida doméstica, la organización comunitaria y un mundo simbólico lleno de creencias. También nos recuerda el momento final del poblado: la casa donde apareció la pieza fue destruida en el episodio violento que provocó el abandono definitivo del asentamiento. Así, la Mano de Irulegi es mucho más que un objeto arqueológico: es una ventana directa a la lengua, la cultura y la vida cotidiana de quienes habitaron este lugar hace más de dos mil años.'
+                    ] 
+                },
+                'objeto7': {
+                    title: 'Hoja de cuchillo de hierro medieval',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Esta hoja de cuchillo formó parte de una herramienta cotidiana en la vida del castillo. Fabricada en hierro, era un objeto versátil, imprescindible tanto en el ámbito doméstico como en actividades de trabajo diario. Los cuchillos se utilizaban para preparar alimentos, cortar carne, trabajar cuero o realizar pequeñas tareas artesanales, lo que los convertía en uno de los utensilios más comunes dentro de cualquier fortaleza medieval.',
+                        'En el interior del castillo, donde vivían soldados, artesanos y personal encargado del mantenimiento de la fortaleza, objetos como este estaban presentes en casi todos los espacios: en la cocina, en los talleres y en las dependencias de servicio. La vida en una fortificación no se limitaba a la defensa; también implicaba organizar el abastecimiento, preparar comidas para la guarnición y mantener en funcionamiento todas las actividades necesarias para sostener a la comunidad que habitaba el recinto.',
+                        'El hallazgo de una hoja de cuchillo en el castillo de Irulegi nos permite imaginar escenas cotidianas dentro de sus muros: la preparación de alimentos en una cocina junto al fuego, el trabajo paciente de un artesano o las tareas diarias de quienes aseguraban el funcionamiento de la fortaleza. Este tipo de objetos refleja la dimensión más práctica y humana del castillo, un lugar que, además de ser un espacio defensivo, fue durante siglos un centro de vida y actividad constante, ocupado de forma continuada desde su construcción entre los siglos XI y XII hasta finales del siglo XV.'
+                    ] 
+                },
+                'objeto8': {
+                    title: 'Dado de hueso medieval',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Este pequeño dado de hueso es un objeto asociado al ocio y al tiempo libre dentro del castillo. Tallado cuidadosamente a partir de un hueso animal, presenta las caras marcadas con puntos que permitían su uso en juegos de azar o de entretenimiento. A pesar de su tamaño reducido, este tipo de piezas aparece con frecuencia en contextos medievales y constituye una evidencia directa de las actividades recreativas que formaban parte de la vida cotidiana en una fortaleza.',
+                        'La vida en el castillo no estaba compuesta únicamente por tareas militares o de vigilancia. Entre turnos de guardia, trabajos de mantenimiento o labores domésticas, los habitantes de la fortaleza también necesitaban momentos de descanso y socialización. Los juegos con dados podían practicarse en espacios interiores, alrededor del fuego, o en patios y estancias comunes, y servían para reforzar la convivencia entre soldados, sirvientes y otros miembros de la comunidad que habitaba el recinto.',
+                        'El hallazgo de este dado nos recuerda que el castillo era un lugar habitado de forma permanente, donde se desarrollaba una vida completa y compleja. Las excavaciones arqueológicas han documentado numerosos objetos relacionados con la alimentación, el trabajo, la religión y el ocio, lo que demuestra que la fortaleza funcionaba como un pequeño núcleo social organizado. Este dado, aparentemente modesto, nos acerca a una dimensión muy humana del pasado: la necesidad de jugar, compartir y encontrar momentos de diversión incluso en un entorno marcado por la disciplina y la defensa del territorio.'
+                    ] 
+                },
+                'objeto9': {
+                    title: 'Dardo de ballesta de hierro medieval',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Este dardo de ballesta es un proyectil diseñado para ser disparado con una de las armas más eficaces de la guerra medieval. Fabricado en hierro y de forma alargada y puntiaguda, estaba pensado para penetrar armaduras y escudos a cierta distancia. La ballesta permitía lanzar estos proyectiles con gran fuerza y precisión, lo que la convirtió en un elemento fundamental en la defensa de fortalezas como el castillo de Irulegi.',
+                        'Desde su posición elevada, el castillo controlaba los caminos y el territorio circundante, por lo que la vigilancia y la preparación ante posibles ataques formaban parte de la vida diaria de la guarnición. En caso de amenaza, los defensores podían situarse en murallas y torres, utilizando armas como la ballesta para proteger la fortaleza y asegurar el dominio sobre el entorno. Este tipo de proyectiles formaba parte del equipamiento habitual de los soldados encargados de la defensa.',
+                        'El hallazgo de un dardo de ballesta en el castillo refleja la función principal de esta fortificación: la defensa y el control del territorio. En las excavaciones se hallaron multitud de estos, así como un gancho de hierro que servía para cargar las ballestas. El castillo de Irulegi fue construido con ese objetivo estratégico y estuvo ocupado durante varios siglos, desde su origen en torno a los siglos XI y XII hasta su abandono a finales del siglo XV. La presencia de armamento como este nos permite imaginar los momentos de alerta, entrenamiento y combate que pudieron vivirse en sus murallas, recordándonos que la fortaleza era, ante todo, un espacio preparado para resistir y proteger.'
+                    ] 
+                },
+                'objeto10': {
+                    title: 'Clavo de hierro medieval',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Este clavo de hierro forjado es un objeto sencillo, pero fundamental para comprender cómo se construía y mantenía un castillo medieval. Los clavos eran elementos indispensables en la arquitectura y en la vida diaria de una fortaleza: servían para fijar vigas y tablones de madera, asegurar puertas y ventanas, reforzar tejados o ensamblar muebles y estructuras. Su presencia en el yacimiento es una prueba directa del trabajo constante necesario para conservar el castillo en funcionamiento.',
+                        'En un lugar como el castillo de Irulegi, expuesto al viento, la lluvia y el desgaste del uso cotidiano, el mantenimiento era una tarea continua. Carpinteros, herreros y otros trabajadores reparaban suelos, puertas, escaleras o empalizadas, utilizando herramientas y materiales como este clavo. Cada intervención contribuía a garantizar la seguridad y la habitabilidad del recinto, permitiendo que soldados y habitantes vivieran y trabajaran dentro de sus muros.',
+                        'El hallazgo de clavos en contextos arqueológicos también nos ayuda a reconstruir la forma y los materiales de las estructuras que hoy han desaparecido, especialmente aquellas hechas de madera. Aunque no siempre se conserven vigas o techumbres, estos pequeños objetos nos revelan la existencia de edificios, talleres y dependencias que formaban parte del castillo. Este clavo, por tanto, es un testimonio silencioso del esfuerzo cotidiano necesario para levantar, reparar y sostener una fortaleza medieval a lo largo de los siglos.'
+                    ] 
+                },
+                'objeto11': {
+                    title: 'Hebilla de hierro medieval',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Esta hebilla de hierro formaba parte del equipamiento personal de los habitantes del castillo de Irulegi. Las hebillas eran elementos esenciales en la vestimenta medieval, utilizadas para ajustar cinturones, sujetar prendas o asegurar correas y bolsas. Fabricadas en metal para resistir el uso diario, combinaban una función práctica con un diseño sencillo y duradero, adaptado a las necesidades de la vida en una fortaleza.',
+                        'En el interior del castillo, cinturones y correajes eran imprescindibles tanto para el trabajo cotidiano como para la actividad militar. Los soldados utilizaban hebillas para fijar sus armas o mantener ajustada la indumentaria durante las guardias y desplazamientos. Al mismo tiempo, artesanos, campesinos y otros habitantes del recinto las empleaban en su ropa y herramientas, lo que demuestra que este tipo de objetos estaba presente en todos los niveles de la sociedad medieval.',
+                        'El hallazgo de una hebilla nos permite imaginar a las personas que vivieron en el castillo: soldados que se preparaban para la vigilancia en las murallas, trabajadores que realizaban tareas de mantenimiento o habitantes que se desplazaban por las estancias del recinto. Este objeto, pequeño pero resistente, refleja la importancia del equipamiento personal en la vida diaria y nos recuerda que el castillo no era solo una estructura defensiva, sino también un espacio habitado donde cada detalle contribuía al funcionamiento y la organización de la comunidad.'
+                    ] 
+                },
+                'objeto12': {
+                    title: 'Placa de armadura brigantina de hierro decorada con remaches de latón',
+                    icon: 'images/img_objects.png',
+                    paragraphs: [
+                        'Esta placa de hierro formaba parte de una armadura brigantina, un tipo de protección corporal muy utilizado en los últimos siglos de la Edad Media. Las brigantinas estaban compuestas por numerosas pequeñas placas metálicas remachadas en el interior de una prenda de tela o cuero, creando una armadura flexible y resistente que permitía moverse con mayor facilidad que las armaduras completas de placas. Este sistema combinaba protección y movilidad, cualidades esenciales para los combatientes que debían luchar o desplazarse en espacios reducidos, como los caminos de montaña o las murallas de un castillo.',
+                        'En el castillo de Irulegi, piezas como esta estaban vinculadas a la defensa del territorio y a la presencia de soldados encargados de vigilar y proteger la fortaleza. La armadura era parte del equipamiento personal de quienes desempeñaban funciones militares, especialmente en momentos de conflicto o de alerta. Su uso refleja un contexto en el que la seguridad del castillo dependía tanto de sus muros y torres como de la preparación de las personas que lo defendían.',
+                        'Se han hallado 46 placas de armadura, ubicadas sobre todo en niveles de excavación de la torre del homenaje, lo que nos acerca a la dimensión militar del castillo en sus últimos siglos de ocupación. De estas piezas, solamente unas pocas presentan remaches de latón, cuando la mayoría son de hierro, lo que nos habla de la estética o cierta ostentación en los elementos defensivos personales. Nos permite imaginar a los defensores equipándose antes de una guardia o preparándose para una posible amenaza. Esta pieza simboliza la evolución de las técnicas defensivas medievales y nos recuerda que, tras los muros de piedra, existía una comunidad organizada para proteger su territorio y mantener el control sobre el entorno que rodeaba la fortaleza.'
+                    ] 
+                }
+            };
+
+            const data = content[modelId];
+            if (data) {
+                document.getElementById('detail-title').innerText = data.title;
+                document.getElementById('detail-icon').src = data.icon;
+                
+                const descContainer = document.getElementById('detail-description');
+                descContainer.innerHTML = '';
+                data.paragraphs.forEach(text => {
+                    const p = document.createElement('p');
+                    p.innerText = text;
+                    descContainer.appendChild(p);
+                });
+                
+                document.getElementById('activate-ar-btn').onclick = () => {
+                    startAR(modelId, data.title);
+                };
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
