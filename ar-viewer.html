@@ -3,39 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Irulegi - Visor AR (MindAR)</title>
+    <title>Irulegi - AR</title>
     
-    <link rel="stylesheet" href="ar-style.css?v=1.0">
+    <link rel="stylesheet" href="ar-style.css?v=4.0">
     
-    <!-- MindAR and A-Frame libraries -->
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <!-- A-Frame first -->
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 </head>
 <body>
-    <div class="ui-overlay">
-        <a href="index.html" class="back-btn" id="btn-back">✕</a>
-        <div id="debug-log" style="position: fixed; bottom: 80px; left: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #0f0; font-family: monospace; font-size: 10px; padding: 10px; z-index: 2000; max-height: 100px; overflow-y: auto; pointer-events: none; display: none;"></div>
-        <div class="scanning-hint" id="hint-text">Apunta con la cámara al marcador de la maqueta</div>
+    <div id="custom-loader">
+        <div class="spinner"></div>
+        <p id="loader-text">Preparando experiencia... / Experientzia prestatzen...</p>
+        <div id="loader-subtext" style="font-size: 12px; margin-top: 10px; opacity: 0.7;"></div>
     </div>
 
-    <!-- A-Frame scene with MindAR -->
-    <!-- Note: The “targets.mind” file must be generated using the images from your model -->
+    <div class="ui-overlay">
+        <a href="index.html" class="back-btn" id="btn-back">✕</a>
+        <div class="scanning-hint" id="hint-text">Apunta con la cámara a la maqueta / Zuzendu kamera modeloari</div>
+    </div>
+
     <a-scene 
         id="ar-scene"
-        mindar-image="autoStart: true; uiScanning: #hint-text;" 
+        mindar-image="autoStart: false; uiScanning: #hint-text; uiLoading: no;" 
+        embedded
         color-space="sRGB" 
-        renderer="colorManagement: true, physicallyCorrectLights" 
+        renderer="colorManagement: true, physicallyCorrectLights: true, alpha: true" 
         vr-mode-ui="enabled: false" 
         device-orientation-permission-ui="enabled: false">
         
         <a-assets>
-            <!-- The models will be loaded dynamically -->
             <a-asset-item id="model-asset" src=""></a-asset-item>
         </a-assets>
 
-        <a-camera position="0 0 0" look-controls="enabled: false" cursor="fuse: false; rayOrigin: mouse;" raycaster="far: 10000; objects: .clickable"></a-camera>
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-        <!-- The model will appear on target 0 (the first image you compile in the .mind file) -->
         <a-entity id="example-target" mindar-image-target="targetIndex: 0">
             <a-gltf-model 
                 id="ar-model"
@@ -48,42 +50,74 @@
     </a-scene>
 
     <script>
-        window.onerror = (msg, url, line) => {
-            return false;
-        };
-
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
-            const modelId = params.get('model');
-            const backUrl = params.get('from') || 'index.html';
-            
-            document.getElementById('btn-back').href = backUrl;
+            const modelId = params.get('model') || 'fort';
+
+            document.getElementById('btn-back').href = 'index.html';
 
             const models = {
-                'fort': { glb: 'models/edificio1.glb', mind: 'targets_fort.mind' },
-                'castle': { glb: 'models/edificio2.glb', mind: 'targets_castle.mind' }
+                'fort': { glb: 'models/fort.glb', mind: 'mind/targets_fort.mind' },
+                'castle': { glb: 'models/castle.glb', mind: 'mind/targets_castle.mind' }
             };
 
-            const data = models[modelId] || models['fort'];
-            
-            // Configure the .mind file dynamically before MindAR starts
+            const data = models[modelId];
             const sceneEl = document.getElementById('ar-scene');
-            sceneEl.setAttribute('mindar-image', `imageTargetSrc: ./${data.mind}; autoStart: true; uiScanning: #hint-text;`);
+            const loader = document.getElementById('custom-loader');
+            const loaderText = document.getElementById('loader-text');
+            const loaderSubtext = document.getElementById('loader-subtext');
 
-            // Update the GLB model
-            const asset = document.getElementById('model-asset');
-            asset.setAttribute('src', data.glb);
-
-            // Optional: Specific adjustments based on the model
-            const modelEntity = document.getElementById('ar-model');
+            // Configure MindAR attributes (use autoStart: true)
+            sceneEl.setAttribute('mindar-image', `imageTargetSrc: ./${data.mind}; autoStart: true; uiScanning: #hint-text; uiLoading: no;`);
+            document.getElementById('model-asset').setAttribute('src', data.glb);
+            
             if (modelId === 'fort') {
-                modelEntity.setAttribute('scale', '0.05 0.05 0.05');
+                document.getElementById('ar-model').setAttribute('scale', '0.05 0.05 0.05');
+            }
+
+            const startExperience = async () => {
+                try {
+                    loaderSubtext.innerText = "Cargando motor de visión... / Ikusmen motorra kargatzen...";
+                    
+                    // Wait for the system to be available
+                    const checkSystem = () => {
+                        return sceneEl.systems && sceneEl.systems['mindar-image-system'];
+                    };
+
+                    let attempts = 0;
+                    while (!checkSystem() && attempts < 20) {
+                        await new Promise(r => setTimeout(r, 250));
+                        attempts++;
+                    }
+
+                    const mindarSystem = sceneEl.systems['mindar-image-system'];
+                    if (!mindarSystem) {
+                        throw new Error("Sistema MindAR no registrado. Comprueba tu conexión. / MindAR sistema erregistratu gabe. Zure konexioa egiaztatu.");
+                    }
+
+                    loaderText.innerText = "Cámara activada / Kamera aktibatuta";
+                    loaderSubtext.innerText = "Solicitando permisos... / Baimenak eskatzen...";
+                    
+                    // Start the system
+                    await mindarSystem.start();
+                    
+                    loader.style.transition = "opacity 0.5s";
+                    loader.style.opacity = "0";
+                    setTimeout(() => loader.style.display = 'none', 500);
+                } catch (err) {
+                    console.error("AR Error:", err);
+                    loaderText.innerText = "Vaya, algo ha fallado / Ai ene, zerbait gaizki joan da";
+                    loaderSubtext.innerHTML = `${err.message}<br><br><button onclick="location.reload()" class="retry-btn">REINTENTAR / BERRIRO SAIATU</button>`;
+                }
+            };
+
+            // Start the experience when the scene is loaded
+            if (sceneEl.hasLoaded) {
+                startExperience();
             } else {
-                modelEntity.setAttribute('scale', '0.1 0.1 0.1');
+                sceneEl.addEventListener('loaded', startExperience);
             }
         });
-
-        const sceneEl = document.querySelector('a-scene');
     </script>
 </body>
 </html>

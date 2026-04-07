@@ -39,7 +39,9 @@ async function startAR(modelId, customTitle) {
         'objeto9': 'models/ViroteBallesta.glb',
         'objeto10': 'models/ClavoHierro.glb',
         'objeto11': 'models/HebillaHierro.glb',
-        'objeto12': 'models/PlacaBrigantina.glb'
+        'objeto12': 'models/PlacaBrigantina.glb',
+        'fort': 'models/fort.glb',
+        'castle': 'models/castle.glb',
     };
     
     const modelPath = models[modelId] || models['fort'];
@@ -68,6 +70,6 @@ async function startAR(modelId, customTitle) {
         else { modelViewer.addEventListener('load', trigger, { once: true }); }
         setTimeout(trigger, 200);
     } else {
-        showModal("La Realidad Aumentada solo está disponible en dispositivos móviles (Android o iOS).");
+        showModal("La Realidad Aumentada solo está disponible en dispositivos móviles (Android o iOS) / Errealitate Areagotua gailu mugikorretan (Android edo IOS) bakarrik dago eskuragarri");
     }
 }

@@ -23,18 +23,16 @@ async function startAR(modelId) {
         return;
     }
 
-    // 2. Check if is a mobile device
+    // Check if is a mobile device
     const isAndroid = /Android/i.test(navigator.userAgent);
     const isIOS = /iPhone|iPad/i.test(navigator.userAgent) || 
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     if (!isAndroid && !isIOS) {
-        showModal("La Realidad Aumentada solo está disponible en dispositivos móviles (Android o iOS).");
+        showModal("La Realidad Aumentada solo está disponible en dispositivos móviles (Android o iOS) / Errealitate Areagotua gailu mugikorretan (Android edo IOS) bakarrik dago eskuragarri");
         return;
     }
 
     // If everything is fine, redirect to the viewer
-    const currentPath = window.location.pathname;
-    const fromPage = currentPath.substring(currentPath.lastIndexOf('/') + 1) || 'index.html';
-    window.location.href = `ar-viewer.html?model=${modelId}&from=${fromPage}`;
+    window.location.href = `ar-viewer.html?model=${modelId}`;
 }
