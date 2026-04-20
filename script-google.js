@@ -40,8 +40,8 @@ async function startAR(modelId, customTitle) {
         'objeto10': 'models/ClavoHierro.glb',
         'objeto11': 'models/HebillaHierro.glb',
         'objeto12': 'models/PlacaBrigantina.glb',
-        'fort': 'models/fort.glb',
-        'castle': 'models/castle.glb',
+        'fort': 'models/Fort.glb',
+        'castle': 'models/Castle.glb',
     };
     
     const modelPath = models[modelId] || models['fort'];
