@@ -17,9 +17,14 @@ function closeModal() {
 }
 
 async function startAR(modelId) {
+    // Wait for translations to load
+    while (!translations || Object.keys(translations).length === 0) {
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    
     // MindAR requires a camera, and the camera requires HTTPS
     if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
-        showModal("La Realidad Aumentada requiere una conexión segura (HTTPS).");
+        showModal(translations.script['https-error']);
         return;
     }
 
@@ -29,7 +34,7 @@ async function startAR(modelId) {
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
     if (!isAndroid && !isIOS) {
-        showModal("La Realidad Aumentada solo está disponible en dispositivos móviles (Android o iOS) / Errealitate Areagotua gailu mugikorretan (Android edo IOS) bakarrik dago eskuragarri");
+        showModal(translations.script['mobile-error']);
         return;
     }
 

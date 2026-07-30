@@ -39,6 +39,34 @@ html, body {
     backdrop-filter: blur(5px);
 }
 
+.lang-switch {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    pointer-events: auto;
+}
+
+.lang-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: all 0.2s;
+    font-family: 'FuturaBook', sans-serif;
+}
+
+.lang-btn:active {
+    transform: scale(0.95);
+    background: rgba(255, 255, 255, 0.4);
+}
+
 .scanning-hint {
     text-align: center;
     color: white;
@@ -135,4 +163,72 @@ video {
 /* Ocultar el logo de MindAR */
 .mindar-ui-scanning, .mindar-ui-loading {
     font-family: sans-serif !important;
+}
+
+/* Panel de Calibración */
+.calib-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 15px;
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-family: sans-serif;
+    pointer-events: auto;
+}
+
+.calib-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-bottom: 15px; /* Forzar espacio entre filas */
+}
+
+.calib-group:last-child {
+    margin-bottom: 0;
+}
+
+.calib-label {
+    font-weight: bold;
+    font-size: 12px;
+    width: 35px;
+    color: #333;
+}
+
+.calib-panel button {
+    background: #9d6d6d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    cursor: pointer;
+    flex: 1;
+    min-width: 30px;
+}
+
+.calib-panel button:active {
+    background: #7a5252;
+}
+
+.calib-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.copy-btn {
+    background: #4a90e2 !important;
+}
+
+.reset-btn {
+    background: #e74c3c !important;
 }

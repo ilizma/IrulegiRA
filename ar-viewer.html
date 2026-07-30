@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Irulegi - AR</title>
     
-    <link rel="stylesheet" href="ar-style.css?v=4.0">
+    <link rel="stylesheet" href="ar-style.css?v=9.0">
     
     <!-- A-Frame first -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
@@ -14,13 +14,48 @@
 <body>
     <div id="custom-loader">
         <div class="spinner"></div>
-        <p id="loader-text">Preparando experiencia... / Experientzia prestatzen...</p>
+        <p id="loader-text" data-i18n="ar-viewer.loader-text">Preparando experiencia... / Experientzia prestatzen...</p>
         <div id="loader-subtext" style="font-size: 12px; margin-top: 10px; opacity: 0.7;"></div>
     </div>
 
     <div class="ui-overlay">
         <a href="index.html" class="back-btn" id="btn-back">✕</a>
-        <div class="scanning-hint" id="hint-text">Apunta con la cámara a la maqueta / Zuzendu kamera modeloari</div>
+        <div class="scanning-hint" id="hint-text" data-i18n="ar-viewer.hint-text">Apunta con la cámara a la maqueta / Zuzendu kamera modeloari</div>
+    </div>
+
+    <div class="lang-switch">
+        <button class="lang-btn" id="lang-btn" onclick="toggleLanguage()">ES</button>
+    </div>
+
+    <!-- Panel de Calibración (oculto por defecto) -->
+    <div id="calib-panel" class="calib-panel" style="display:none;">
+        <div class="calib-group">
+            <span class="calib-label" data-i18n="ar-viewer.calib.pos">POS</span>
+            <button onclick="move('x', -0.005)">X-</button>
+            <button onclick="move('x', 0.005)">X+</button>
+            <button onclick="move('y', -0.005)">Y-</button>
+            <button onclick="move('y', 0.005)">Y+</button>
+            <button onclick="move('z', -0.005)">Z-</button>
+            <button onclick="move('z', 0.005)">Z+</button>
+        </div>
+        <div class="calib-group">
+            <span class="calib-label" data-i18n="ar-viewer.calib.rot">ROT</span>
+            <button onclick="rotate('x', -0.5)">X-</button>
+            <button onclick="rotate('x', 0.5)">X+</button>
+            <button onclick="rotate('y', -0.5)">Y-</button>
+            <button onclick="rotate('y', 0.5)">Y+</button>
+            <button onclick="rotate('z', -0.5)">Z-</button>
+            <button onclick="rotate('z', 0.5)">Z+</button>
+        </div>
+        <div class="calib-group">
+            <span class="calib-label" data-i18n="ar-viewer.calib.scl">SCL</span>
+            <button onclick="scaleModel(-0.005)">-</button>
+            <button onclick="scaleModel(0.005)">+</button>
+        </div>
+        <div class="calib-footer">
+            <button onclick="copyValues()" class="copy-btn" data-i18n="ar-viewer.calib.copy">COPIAR VALORES</button>
+            <button onclick="resetValues()" class="reset-btn" data-i18n="ar-viewer.calib.reset">RESET</button>
+        </div>
     </div>
 
     <a-scene 
@@ -39,45 +74,157 @@
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity id="example-target" mindar-image-target="targetIndex: 0">
-            <a-gltf-model 
-                id="ar-model"
-                src="#model-asset" 
-                rotation="0 0 0" 
-                position="0 0 0" 
-                scale="0.1 0.1 0.1">
-            </a-gltf-model>
+            <!-- Calibración envolvente -->
+            <a-entity id="calibracion-modelo" position="0 0 0" rotation="0 0 0" scale="1 1 1">
+                <a-gltf-model 
+                    id="ar-model"
+                    src="#model-asset" 
+                    rotation="0 0 0" 
+                    position="0 0 0" 
+                    scale="0.1 0.1 0.1">
+                </a-gltf-model>
+            </a-entity>
         </a-entity>
     </a-scene>
 
+    <script src="lang.js?v=3.1"></script>
     <script>
+        let t = {}; // Translation cache for dynamic texts
+        
+        // Override applyTranslations for ar-viewer page
+        function applyTranslations() {
+            t = translations['ar-viewer'];
+            
+            // Update static elements with data-i18n
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const keys = key.split('.');
+                let value = translations;
+                for (const k of keys) {
+                    if (value[k]) {
+                        value = value[k];
+                    } else {
+                        value = null;
+                        break;
+                    }
+                }
+                if (value) {
+                    el.textContent = value;
+                }
+            });
+        }
+        
+        // Funciones de calibración globales para los botones
+        window.move = (axis, delta) => {
+            const el = document.getElementById('calibracion-modelo');
+            const pos = el.getAttribute('position');
+            pos[axis] += delta;
+            el.setAttribute('position', pos);
+            console.log('Nueva posición:', pos);
+        };
+
+        window.rotate = (axis, delta) => {
+            const el = document.getElementById('calibracion-modelo');
+            const rot = el.getAttribute('rotation');
+            rot[axis] += delta;
+            el.setAttribute('rotation', rot);
+            console.log('Nueva rotación:', rot);
+        };
+
+        window.scaleModel = (delta) => {
+            const el = document.getElementById('calibracion-modelo');
+            const s = el.getAttribute('scale');
+            s.x += delta;
+            s.y += delta;
+            s.z += delta;
+            el.setAttribute('scale', s);
+            console.log('Nueva escala:', s);
+        };
+
+        window.copyValues = () => {
+            const el = document.getElementById('calibracion-modelo');
+            const values = {
+                position: el.getAttribute('position'),
+                rotation: el.getAttribute('rotation'),
+                scale: el.getAttribute('scale')
+            };
+            const json = JSON.stringify(values, null, 2);
+            navigator.clipboard.writeText(json).then(() => {
+                alert(t['loading-messages'].copied + json);
+            });
+        };
+
+        window.resetValues = () => {
+            const el = document.getElementById('calibracion-modelo');
+            el.setAttribute('position', "0 0 0");
+            el.setAttribute('rotation', "0 0 0");
+            el.setAttribute('scale', "1 1 1");
+            console.log('Valores reseteados');
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const modelId = params.get('model') || 'fort';
+            const calibMode = params.get('calib') === '1';
+
+            if (calibMode) {
+                document.getElementById('calib-panel').style.display = 'block';
+            }
 
             document.getElementById('btn-back').href = 'index.html';
 
-            const models = {
-                'fort': { glb: 'models/Fort.glb', mind: 'mind/targets_fort.mind' },
-                'castle': { glb: 'models/Castle.glb', mind: 'mind/targets_castle.mind' }
+            // Configuración base de los modelos (ajustar aquí tras calibrar)
+            const CONFIG_RA = {
+                'fort': { 
+                    glb: 'models/Fort.glb', 
+                    mind: 'mind/targets_fort.mind',
+                    // Valores iniciales (se pueden ajustar tras calibrar)
+                    offset: {
+                        position: "0 0 0",
+                        rotation: "0 0 0",
+                        scale: "0.5 0.5 0.5" // El scale que ya tenías para fort
+                    }
+                },
+                'castle': { 
+                    glb: 'models/Castle.glb', 
+                    mind: 'mind/targets_castle.mind',
+                    offset: {
+                        position: "0 0 0",
+                        rotation: "0 0 0",
+                        scale: "1 1 1"
+                    }
+                }
             };
 
-            const data = models[modelId];
+            const data = CONFIG_RA[modelId];
             const sceneEl = document.getElementById('ar-scene');
             const loader = document.getElementById('custom-loader');
             const loaderText = document.getElementById('loader-text');
             const loaderSubtext = document.getElementById('loader-subtext');
+            const calibEl = document.getElementById('calibracion-modelo');
+            const modelEl = document.getElementById('ar-model');
 
-            // Configure MindAR attributes (use autoStart: true)
+            // Aplicar configuración inicial
+            calibEl.setAttribute('position', data.offset.position);
+            calibEl.setAttribute('rotation', data.offset.rotation);
+            calibEl.setAttribute('scale', data.offset.scale);
+
+            // Ajuste específico del modelo interno si es necesario (el original era 0.1)
+            modelEl.setAttribute('scale', '0.1 0.1 0.1');
+
+            // Configure MindAR attributes
             sceneEl.setAttribute('mindar-image', `imageTargetSrc: ./${data.mind}; autoStart: true; uiScanning: #hint-text; uiLoading: no;`);
             document.getElementById('model-asset').setAttribute('src', data.glb);
             
-            if (modelId === 'fort') {
-                document.getElementById('ar-model').setAttribute('scale', '0.05 0.05 0.05');
-            }
-
             const startExperience = async () => {
+                // Wait for translations to be ready
+                while (!t || Object.keys(t).length === 0) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                
                 try {
-                    loaderSubtext.innerText = "Cargando motor de visión... / Ikusmen motorra kargatzen...";
+                    loaderSubtext.innerText = t['loading-messages']['vision-engine'];
                     
                     // Wait for the system to be available
                     const checkSystem = () => {
@@ -92,11 +239,11 @@
 
                     const mindarSystem = sceneEl.systems['mindar-image-system'];
                     if (!mindarSystem) {
-                        throw new Error("Sistema MindAR no registrado. Comprueba tu conexión. / MindAR sistema erregistratu gabe. Zure konexioa egiaztatu.");
+                        throw new Error(t['loading-messages']['system-error']);
                     }
 
-                    loaderText.innerText = "Cámara activada / Kamera aktibatuta";
-                    loaderSubtext.innerText = "Solicitando permisos... / Baimenak eskatzen...";
+                    loaderText.innerText = t['loading-messages']['camera-activated'];
+                    loaderSubtext.innerText = t['loading-messages']['permissions'];
                     
                     // Start the system
                     await mindarSystem.start();
@@ -106,8 +253,8 @@
                     setTimeout(() => loader.style.display = 'none', 500);
                 } catch (err) {
                     console.error("AR Error:", err);
-                    loaderText.innerText = "Vaya, algo ha fallado / Ai ene, zerbait gaizki joan da";
-                    loaderSubtext.innerHTML = `${err.message}<br><br><button onclick="location.reload()" class="retry-btn">REINTENTAR / BERRIRO SAIATU</button>`;
+                    loaderText.innerText = t['loading-messages']['generic-error'];
+                    loaderSubtext.innerHTML = `${err.message}<br><br><button onclick="location.reload()" class="retry-btn">${t['loading-messages']['retry']}</button>`;
                 }
             };
 

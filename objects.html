@@ -3,72 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Irulegi - Objetos / Objektuak</title>
-    <style>@import url("style.css?v=11.0");</style>
+    <title>Irulegi - Objetos</title>
+    <style>@import url("style.css?v=12.0");</style>
 </head>
 <body>
+    <div class="lang-switch">
+        <button class="lang-btn" id="lang-btn" onclick="toggleLanguage()">ES</button>
+    </div>
     <div class="container">
-        <h1>OBJETOS / OBJEKTUAK</h1>
+        <h1 data-i18n="objects.heading">OBJETOS / OBJEKTUAK</h1>
         
         <div class="button-container">
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto1'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Fragmento de brazalete de vidrio</span>
+                <span data-i18n="objects.buttons.objeto1">Fragmento de brazalete de vidrio</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto2'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Ficha de cerámica</span>
+                <span data-i18n="objects.buttons.objeto2">Ficha de cerámica</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto3'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Piedra de alisar</span>
+                <span data-i18n="objects.buttons.objeto3">Piedra de alisar</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto4'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Fragmento de molino de piedra circular</span>
+                <span data-i18n="objects.buttons.objeto4">Fragmento de molino de piedra circular</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto5'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Punta de lanza</span>
+                <span data-i18n="objects.buttons.objeto5">Punta de lanza</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto6'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Mano de Irulegi</span>
+                <span data-i18n="objects.buttons.objeto6">Mano de Irulegi</span>
             </button>
 
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto7'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Hoja de cuchillo de hierro medieval</span>
+                <span data-i18n="objects.buttons.objeto7">Hoja de cuchillo de hierro medieval</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto8'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Dado de hueso medieval</span>
+                <span data-i18n="objects.buttons.objeto8">Dado de hueso medieval</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto9'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Dardo de ballesta de hierro medieval</span>
+                <span data-i18n="objects.buttons.objeto9">Dardo de ballesta de hierro medieval</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto10'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Clavo de hierro medieval</span>
+                <span data-i18n="objects.buttons.objeto10">Clavo de hierro medieval</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto11'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Hebilla de hierro medieval</span>
+                <span data-i18n="objects.buttons.objeto11">Hebilla de hierro medieval</span>
             </button>
             <button class="ar-button" onclick="window.location.href='detail.html?model=objeto12'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Placa de armadura brigantina de hierro decorada con remaches de latón</span>
+                <span data-i18n="objects.buttons.objeto12">Placa de armadura brigantina de hierro decorada con remaches de latón</span>
             </button>
         </div>
         <div class="nav-buttons">
-            <a href="index.html" class="back-link">← Volver / Itzuli</a>
+            <a href="index.html" class="back-link" data-i18n="objects.back">← Volver / Itzuli</a>
         </div>
     </div>
 
     <footer class="logos-footer">
         <img src="images/logos.png" alt="Logos institucionales" class="footer-image">
-        <p class="grant-text">Esta iniciativa ha contado con una subvención enmarcada en el Plan de Recuperación, Transformación y Resiliencia - Financiado por la Unión Europea-NextGeneration EU, dentro del Plan de Sostenibilidad Turística en Destino Comarca Pamplona Rural.</p>
+        <p class="grant-text" data-i18n="index.footer.grant-text">Esta iniciativa ha contado con una subvención enmarcada en el Plan de Recuperación, Transformación y Resiliencia - Financiado por la Unión Europea-NextGeneration EU, dentro del Plan de Sostenibilidad Turística en Destino Comarca Pamplona Rural.</p>
     </footer>
+    <script src="lang.js?v=3.1"></script>
+    <script>
+        // Override applyTranslations for objects page
+        function applyTranslations() {
+            document.title = translations.objects.title;
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const keys = key.split('.');
+                let value = translations;
+                for (const k of keys) {
+                    if (value[k]) {
+                        value = value[k];
+                    } else {
+                        value = null;
+                        break;
+                    }
+                }
+                if (value) {
+                    el.textContent = value;
+                }
+            });
+        }
+    </script>
 </body>
 </html>

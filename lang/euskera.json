@@ -1,0 +1,164 @@
+{
+  "ar-viewer": {
+    "loader-text": "Experientzia prestatzen...",
+    "hint-text": "Zuzendu kamera modeloari",
+    "calib": {
+      "pos": "POS",
+      "rot": "ROT",
+      "scl": "SCL",
+      "copy": "KOPIATU BALIOAK",
+      "reset": "BERRETSI"
+    },
+    "loading-messages": {
+      "vision-engine": "Ikusmen motorra kargatzen...",
+      "system-error": "MindAR sistema erregistratu gabe. Zure konexioa egiaztatu.",
+      "camera-activated": "Kamera aktibatuta",
+      "permissions": "Baimenak eskatzen...",
+      "generic-error": "Ai ene, zerbait gaizki joan da",
+      "retry": "BERRIRO SAIATU",
+      "copied": "Balioak arbelera kopiatuak:\n\n"
+    }
+  },
+  "index": {
+    "title": "Irulegi - bi garai, bi guda",
+    "subtitle": "BI GARAI, BI GUDA",
+    "buttons": {
+      "fort": "Herrixka",
+      "castle": "Gaztelua",
+      "objects": "Objektuak"
+    },
+    "footer": {
+      "grant-text": "Ekintza honek Euskal Errepublikako Berreskurapen, Eraldaketa eta Erresilientzia Planuan kokatutako laguntza bat izan du - Europar Batasun-NextGeneration EUk finantzatua, Pamplona Erraldea Lurraldeko Turismoaren Jasangarritasun Plana barruan."
+    }
+  },
+  "detail": {
+    "title": "Irulegi - xehetasunak",
+    "loading": "Kargatzen...",
+    "activate-ar": "IKUSI ERREALITATE AREAGOTUAN",
+    "back": "← Itzuli",
+    "objects": {
+      "objeto1": {
+        "title": "Beirazko besoko zatia",
+        "paragraphs": [
+          "Beirazko besoko zati hori Irulegi herriko biztanleek duela bi mila urte baino gehiago erabilitako apaingarri pertsonal baten zati izan zen. Besokoak objektu ikusgarriak eta baloratuak ziren, itxura zaintzearekin eta eramaten zituztenen nortasun sozialarekin lotuak. Beira erabiltzeak (nahiko material delikatua eta landua) Pirinio iparraldeko eta Europa erdialdeko eremuekiko truke-sareen existentzia adierazten du, baita ezagutza tekniko espezializatuena ere, honen ekoizpenerako tenperatura altuak eta nolabaiteko artisau-trebetasuna beharrezkoa baita.",
+          "Herriko egunerokotasunean, horrelako piezak eguneroko zereginetan laguntzen zieten jabeei: inguruko zelaietan lan egitea, ganadua zaintzea edo etxebizitzen barruan bilera komunitarioetan parte hartzea. Ez zen apaingarri hutsa; prestigioa, familia-talde bateko kide izatea edo beste eskualde batzuetako ondasunak eskuratzea ere adieraz zezakeen.",
+          "Besoko hori herriaren testuinguruan aurkitzeak komunitate aktiboaz hitz egiten digu, ingurunearekin eta beste lurralde batzuekin konektatuta dagoena. Era berean, gogorarazten digu, asentamendua uztea eragin zuten gerraz eta suntsipenaz harago, Irulegiko bizitza eguneroko keinuek, harreman sozialek eta horrelako objektu pertsonal txikiek markatu zutela belaunaldiz belaunaldi, eta horiek biztanleen eguneroko bizitzaren parte zirela."
+        ]
+      },
+      "objeto2": {
+        "title": "Zeramika-fitxa",
+        "paragraphs": [
+          "Zeramikazko fitxa txiki hau objektu xumea da, baina esanahiz betea. Berrerabilitako ontzi zati batetik abiatuta egindako diskoa da, kontu handiz moztua eta erabilera berri baterako egokitua. Pieza mota hauek Burdin Aroko kokalekuetan agertzen dira maiz, eta eguneroko jardueretan jolasteko, zenbatzeko edo kontrolatzeko elementu gisa interpretatu ohi dira. Horrek gizarte antolatu bat islatzen du, eguneroko bizitzan behar praktikoak dituena.",
+          "Fitxa honen moduko objektuak hainbat testuingurutan erabil zitezkeen. Biltegiratutako produktuen kontua eramateko, hala nola zerealak edota animaliak, edo etxe barneko jolasetan eta aisialdiko jardueretan parte hartzeko balio zezaketen. Nekazaritza-, abeltzaintza- eta artisau-lanek urteko erritmoa egituratzen zuten komunitate batean, honen antzeko tresna sinpleek lanak, trukeak eta gizarte-harremanak antolatzen laguntzen zuten.",
+          "Zeramikazko fitxa baten presentziak herriko bizimodua ekoizpen-lan edo gatazkagertakariengatik bakarrik osatua ez zegoela gogorarazten digu. Atseden hartzeko, ikasteko eta elkarrekin bizitzeko uneak zeuden, eta haurrek eta helduek espazioak eta jarduerak partekatzen zituzten. Itxuraz apala den objektu txiki horrek honela hitz egiten digu gunearen dimentsio gizatiarrenaz: kontatzeko, jolasteko eta eguneroko bizitzari ordena emateko beharraz, komunitate egonkor eta ondo antolatu baten barne."
+        ]
+      },
+      "objeto3": {
+        "title": "Lisatzeko harria",
+        "paragraphs": [
+          "Lisatzeko harri hori tresna xumea da, baina funtsezkoa eguneroko bizitzan. Bere gainazal leun eta erresistenteak hainbat material lantzeko aukera ematen zuen, zeramika bereziki, egosi aurretik ontzien hormak leuntzen eta trinkotzen lagunduz. Prozesu horri esker, ontziak erresistenteagoak eta egokiagoak ziren elikagaiak biltegiratzeko, likidoak garraiatzeko edo sukaldatzeko.",
+          "Herriko etxebizitzen barruan, zeramika egitea ohiko jarduera zen, etxeko esparruan egiten zena. Esku adituek lokatza moldatzen zuten, harri hau bezalako tresnek haren forma eta akabera hobetzen zuten bitartean. Egindako ontzi bakoitza ezinbestekoa zen eguneroko bizitzarako: bertan zerealak gordetzen ziren, janaria prestatzen zen edo neguan produktuak kontserbatzen ziren. Horrela, tresna txiki hori komunitatearen biziraupena bermatzen zuen zeregin-kate baten parte zen.",
+          "Aztarnategian lisatzeko harri bat egoteak bertako biztanleen ezagutza teknikoa eta herriaren ekonomian artisautza-lanak zuen garrantzia ere erakusten digu. Belaunaldiz belaunaldi transmititutako trebetasunak menderatzen zituzten eta, keinu errepikatuen eta zehatzen bidez, lehengaiak objektu erabilgarri bihurtzen zituzten pertsonez ari zaigu. Horrelako tresnek herriaren eguneroko errealitatera hurbiltzen gaituzte: etxeko ekoizpena eta familiaren lankidetza komunitatearen bizitzarako funtsezkoak ziren leku batera."
+        ]
+      },
+      "objeto4": {
+        "title": "Harrizko errota zirkularraren zatia",
+        "paragraphs": [
+          "Harrizko errota zirkularraren zati hau herriko eguneroko bizitzarako tresnarik garrantzitsuenetariko bat izan zen: alea irin bihurtzeko erabiltzen zen eskuzko errota. Bata bestearen gainean jarritako bi harriz osatua, errotak garia edo garagarra bezalako zerealak etengabeko mugimendu birakari baten bidez birrintzea ahalbidetzen zuen. Gainazalean ikusten den higadura da urteetan zehar errepikatutako lan horren aztarna zuzena.",
+          "Herriko etxebizitzetan, ehotzea eguneroko eta funtsezko lana zen. Irina prestatzeak komunitateko oinarrizko elikagaia bermatzea esan nahi zuen, bai ogi, gatxa edo opil egosi moduan suaren gainean. Jarduera hori etxe barruan edo inguruan egiten zen, eta denbora, ahalegina eta koordinazioa eskatzen zituen. Harriaren soinu erritmikoa, beste baten gainean biraka, herriko ohiko giroaren parte zen, batez ere otorduak prestatu aurreko uneetan.",
+          "Aztarnategian errotak egoteak nekazaritzan eta elikagaien biltegiratzean oinarritutako ekonomia iradokitzen du, komunitate egonkor bati eusteko gai dena. Etxeko lanak eta familia-antolamenduak taldearen biziraupenean duten garrantzia ere islatzen du. Zati hori, itxuraz sinplea, Irulegiko biztanleei denboran zehar elikatzeko, hazteko eta komunitate gisa mantentzeko aukera eman zien eguneroko jarduera baten testigantza materiala da."
+        ]
+      },
+      "objeto5": {
+        "title": "Lantza punta",
+        "paragraphs": [
+          "Lantza-punta hori herriko biztanleen defentsari eta gerra-jarduerari lotutako objektu bat da. Metalez egina eta zurezko adar batean finkatzeko diseinatua, lantza Burdin Aroko komunitateetako arma ohikoenetako bat zen. Bere formak distantzia motzean erasotzeko edo jaurtitzeko aukera ematen zuen, lurraldea zaintzeko eta babesteko tresna gisa ere balio zuen.",
+          "Irulegi kokatuta zegoen bezalako posizio estrategiko batean, gatazkarako prestakuntza eguneroko bizitzaren parte zen. Gerlariek defentsa-lanetan parte har zezaketen, inguruak patruilatu edo kanpoko mehatxuei erantzun. Herrixkan armak egoteak testuinguru historiko bat islatzen du, zeinean komunitateek beren baliabideak, familiak eta komunikazio-bideak babestu behar zituzten. Ez zen gerraz bakarrik ari, prest egoteko etengabeko beharraz baizik.",
+          "Lantza punta honen aurkikuntzak esanahi berezia hartzen du kontuan hartzen bada herria K.a. I. mendean bortizki suntsitua izan zela, ziurrenik eskualde osoari eragin zioten gatazken testuinguruan. Indusketek suteak eta bat-bateko abandonatzeak dokumentatu dituzte, herrixkako bizitzari amaiera eman zion gertaera traumatiko baten seinale. Pieza hau, beraz, ez da soilik arma bat: tentsio eta defentsa une baten testigantza da, eta Irulegiren historia eguneroko bizitzak eta gerra-mehatxuak markatu zutela gogorarazten digu."
+        ]
+      },
+      "objeto6": {
+        "title": "Irulegiko eskua",
+        "paragraphs": [
+          "Irulegiko eskua deiturikoa aparteko pieza da Europako arkeologiaren testuinguran, eta Nafarroako arkeologia berriko pieza enblematikoenetako bat. Eskubiko esku luzatu forma duen brontzezko xafla da, K.a. I. mendean datatua, eta herriko etxebizitza baten sarreran aurkitu zuten. Zaharberritze-lanetan, alfabeto latindarra baino lehenagoko idazketa-sistema batez egindako inskripzio bat aurkitu zen haren azalean, eta horrek garrantzi historiko handiko aurkikuntza bihurtu zuen objektu hau.",
+          "Piezak teknika bikoitz baten bidez grabatutako inskripzio bat du, eta bi testu aurkezten ditu: bata esgrafiatua, lehenengo idazten dena, eta bestea punteatua, gero idazten dena; ez dakigu pertsona berak egin zituen ala ez. ",
+          "Joaquín Gorrochategui eta Javier Velazaren hitzetan: \"Erabilitako sistema grafikoa zeinario iberikoaren barietate autoktonoa da, zeinario baskonikoa deitzen duguna, lurraldeko zenbait txanpon-etxetan komuna den T zeinu bat duena. Testua, paralelo ezagunik gabe, interpretatzen zaila da. Eraukon hitzak euskarazko eradun (eman) aditzarekin izan dezakeen erlazioa eta sorioneke jainkotasun bati zuzendutako dedikazio gisa ulertzen duten interpretazioek, zorionak esapidearekin konparatuz, babes-testutzat edo eskaintzatzat hartzera gonbidatzen dute. Oraingoz, testu gehiagorekin eta corpus zabalago batekin bakarrik ikertu ahal izango da haren esanahia eta euskal hizkuntzari buruzko gaiak.\"",
+          "Oso pieza berezia da, ia ez baitago antzeko objekturik erregistro arkeologikoan. Beste aztarnategi batzuetako metalezko eskuen adibide batzuk ezagutzen dira, hala nola Puyalcalá de Alcandereko (Huesca) herrixkan aurkitutakoa edo La Vispesa eta El Palao bezalako lekuetan egindako irudikapenak, nahiz eta tamainari, materialari edo estiloari dagokionez desberdinak izan. Esku forma duten abegikortasun-tesera batzuekin ere alderatu dira, baina sendoagoak izaten dira eta objektu bikoitz edo osagarrien parte izaten dira. Oro har, paralelo horiek eskuak balio sinbolikoa edo babeslea izan zezakeela iradokitzen dute, sinesmenekin eta erritualekin lotuta, baita mundu belikoarekin edo indarkeriarekin ere, sinbologiari dagokionez gerra-garaikurren praktika erritualetatik hurbil.",
+          "Bere funtzio zehatzetik haratago, Irulegiko Eskuak antzinako baskoiei buruzko ezagutza eraldatu du. Inskripzioak komunitate horiek idazkera Erromatik iritsi aurretik haien hizkuntzan erabiltzen zutela frogatzen du, eta horrek berretsi egiten du garai hartan funtzionamenduan zegoen sistema grafiko propio bat zegoela. Baskoien idazketasistema horri idazkera baskonikoa deitu izan zaio, eta berezko hizkuntzari, berriz, baskoiera; hizkuntza hori ez da zelta edo indoeuroparra, ezta iberiarra ere. Hipotesirik onartuena da Irulegiko eskuak baduela nolabaiteko lotura euskararekin, nahiz eta hizkuntzalari eta epigrafista guztiek adierazi testu gehiago behar direla hori ziurtasunez frogatu ahal izateko.",
+          "Objektu honek gizarte konplexu batez hitz egiten digu, etxeko bizitza, komunitatearen antolaketa eta sinesmenez betetako mundu sinboliko bat uztartzen zituena. Herriaren azken unea ere gogorarazten digu: pieza agertu zen etxea suntsitu egin zuten asentamendua behin betiko uztea eragin zuen gertaera bortitzean. Horrela, Irulegiko eskua objektu arkeologiko bat baino askoz gehiago da: duela bi mila urte baino gehiago leku honetan bizi izan zirenen hizkuntza, kultura eta eguneroko bizitzarako leiho zuzena da."
+        ]
+      },
+      "objeto7": {
+        "title": "Erdi Aroko aizto-orria",
+        "paragraphs": [
+          "Labana-orri hori gazteluko eguneroko tresna baten parte izan zen. Burdinaz egina, erabilera anitzeko objektua zen, ezinbestekoa bai etxean bai eguneroko lanean. Aiztoak elikagaiak prestatzeko, haragia mozteko, larrua lantzeko edo artisau lan txikiak egiteko erabiltzen ziren, eta horrek Erdi Aroko edozein gotorlekutako tresnarik ohikoenetako bat bihurtzen zituen.",
+          "Gazteluaren barruan soldaduak, artisauak eta gotorlekuaren mantentze-lanez arduratzen ziren langileak bizi ziren, eta horrelako objektuak ia leku guztietan zeuden: sukaldean, tailerretan eta zerbitzuguneetan. Gotorleku bateko bizimodua ez zen defentsara mugatzen; hornikuntza antolatzea, goarnizioarentzako otorduak prestatzea eta bertan bizi zen komunitateari eusteko behar ziren jarduera guztiak martxan mantentzea beharrezkoa zen.",
+          "Irulegiko gazteluan aizto-orri bat aurkituz gero, eguneroko eszenak imajina ditzakegu bertako hormen barruan: sukaldeko sutondoan janaria prestatzea, artisau baten lan jasankorra edota gotorlekuaren funtzionamendua ziurtatzen zutenen eguneroko zereginak. Mota honetako objektuek gazteluaren dimentsio praktikoena eta gizatiarrena islatzen dute. Leku hau defentsa-gunea izateaz gain, mendeetan zehar etengabeko bizi- eta jarduera-gunea izan zen, eta etengabe okupatu zen XI. eta XII. mendeen artean eraiki zenetik XV. mendearen amaiera arte."
+        ]
+      },
+      "objeto8": {
+        "title": "Hezur-dadoa",
+        "paragraphs": [
+          "Hezurrezko dado txiki hau gazteluaren barneko aisiari eta denbora libreari lotutako objektu bat da. Animalia-hezur batetik kontu handiz zizelkatuta, ausazko edo entretenimenduzko jolasetan erabiltzeko aukera ematen zuten puntuz markatutako aurpegiak ditu. Txikia izan arren, pieza mota horiek maiz agertzen dira Erdi Aroko testuinguruetan, eta gotorleku batean eguneroko bizitzaren parte ziren jolas-jardueren ebidentzia zuzena da.",
+          "Gazteluko bizimodua ez zegoen zeregin militarrez edo zaintza-lanez soilik osatua. Guardiako txanden, mantentze-lanen edo etxeko lanen artean, gotorlekuko biztanleek ere atseden eta sozializazio uneak behar zituzten. Dadodun jolasak barruko espazioetan, suaren inguruan, edo patio eta gela komunetan egin zitezkeen, eta soldaduen, zerbitzarien eta bertan bizi zen komunitateko beste kide batzuen arteko elkarbizitza indartzeko balio zuten.",
+          "Dado honen aurkikuntzak gaztelua bizitoiko iraunkor bat izan zela gogorarazten digu, zeinean bizitza oso eta konplexu bat garatzen zen. Indusketa arkeologikoek elikadurarekin, lanarekin, erlijioarekin eta aisialdiarekin lotutako objektu ugari dokumentatu dituzte, eta horrek gotorlekuak gizarte-gune antolatu txiki gisa funtzionatzen zuela frogatzen du. Dadu honek, itxuraz apala, iraganaren dimentsio oso gizatiar batera hurbiltzen gaitu: jolasteko, partekatzeko eta dibertitzeko uneak aurkitzeko beharra, baita diziplinak eta lurraldearen defentsak markatutako ingurune batean ere."
+        ]
+      },
+      "objeto9": {
+        "title": "Erdi Aroko burdinazko balezta-dardoa",
+        "paragraphs": [
+          "Balezta-gezi hau Erdi Aroko gerrako arma eraginkorrenetako batekin tiro egiteko diseinatutako jaurtigai bat da. Burdinaz egina, luzanga eta zorrotza, armadurak eta ezkutuak zulatzeko pentsatua zegoen. Baleztak jaurtigai hauek indar eta zehaztasun handiz jaurtitzeko aukera ematen zuen, eta horrek funtsezko elementu bihurtu zuen Irulegiko gaztelua bezalako gotorlekuen defentsan.",
+          "Bere posizio garaitik, gazteluak inguruko bideak eta lurraldea kontrolatzen zituen, eta, beraz, balizko erasoen aurreko jagoletza eta prestakuntza garnizioaren eguneroko bizitzaren parte ziren. Mehatxurik izanez gero, defendatzaileak harresi eta dorreetan koka zitezkeen, balezta bezalako armak erabiliz gotorlekua babesteko eta ingurunearen gaineko nagusitasuna ziurtatzeko. Horrelako jaurtigaiak defentsaz arduratzen ziren soldaduen ohiko ekipamenduaren parte ziren.",
+          "Gazteluan balezta-gezi bat aurkitzeak gotorleku honen funtzio nagusia islatzen du: lurraldearen defentsa eta kontrola. Indusketetan horietako asko aurkitu ziren, baita baleztak kargatzeko erabiltzen zen burdinazko kako bat ere. Irulegiko gaztelua helburu estrategiko horrekin eraiki zen, eta hainbat mendez okupatuta egon zen, XI. eta XII. mendeen inguruan sortu zenetik XV. mendearen amaieran utzi zuten arte. Horrelako armamentuen presentziak harresietan bizi ahal izan ziren alerta-, entrenamendu- eta borroka-uneak irudikatzeko aukera ematen digu, gotorlekua, batez ere, eusteko eta babesteko prestatutako gunea zela gogoraraziz."
+        ]
+      },
+      "objeto10": {
+        "title": "Erdi Aroko burdinazko iltzea",
+        "paragraphs": [
+          "Burdin forjatuzko iltze hau objektu xumea da, baina funtsezkoa Erdi Aroko gaztelu bat nola eraiki eta mantentzen zen ulertzeko. Iltzeak ezinbesteko elementuak ziren gotorlekuaren arkitekturan eta eguneroko bizitzan: zurezko habeak eta oholak finkatzeko, ateak eta leihoak ziurtatzeko, teilatuak sendotzeko edo altzariak eta egiturak mihiztatzeko balio zuten. Bere presentzia aztarnategian gaztelua martxan mantentzeko behar den etengabeko lanaren froga zuzena da.",
+          "Irulegiko gaztelua bezalako leku batean, haizearen, euriaren eta eguneroko erabileraren higaduraren eraginpean, mantentzea etengabeko lana zen. Arotzek, errementariek eta beste langile batzuek zoruak, ateak, eskailerak edo oholesiak konpontzen zituzten, iltze hori bezalako erremintak eta materialak erabiliz. Esku-hartze bakoitzak esparruaren segurtasuna eta bizigarritasuna bermatzen laguntzen zuen, soldaduak eta biztanleak harresien barne bizi eta lan egin zezaten ahalbidetuz.",
+          "Testuinguru arkeologikoetan iltzeak aurkitzeak gaur egun desagertu diren egituren forma eta materialak berreraikitzen laguntzen digu ere, batez ere egurrez egindakoak. Habeak edo teilatuak beti kontserbatzen ez badira ere, objektu txiki horiek gaztelua osatzen zuten eraikinak, tailerrak eta gelak zeudela erakusten digute. Iltze hori, beraz, mendeetan zehar Erdi Aroko gotorlekua altxatu, konpondu eta eusteko eguneroko ahaleginen lekuko isila da."
+        ]
+      },
+      "objeto11": {
+        "title": "Erdi Aroko burdinazko belarria",
+        "paragraphs": [
+          "Burdinazko hebilla hori Irulegiko gazteluko biztanleen ekipamendu pertsonalaren parte zen. Belarriak funtsezkoak ziren Erdi Aroko jantzietan, eta gerrikoak estutzeko, jantziak eusteko edo uhalak eta poltsak segurtatzeko erabiltzen ziren. Metalez egiten zituzten, eguneroko erabilerari aurre egiteko, funtzio praktiko bat eta gotorleku bateko bizitzaren beharretara egokitutako diseinu sinple eta iraunkor bat konbinatzen zituzten.",
+          "Gazteluaren barnean, gerrikoak eta uhaleriak ezinbestekoak ziren, bai eguneroko lanerako, bai jarduera militarrerako. Soldaduek belarriak armak finkatzeko edo guardietan eta joan-etorrietan janzkera egoki mantentzeko erabiltzen zituzten. Aldi berean, artisauek, nekazariek eta barrutiko beste biztanle batzuek arropa eta erremintetan erabiltzen zituzten, eta honek objektu horiek Erdi Aroko gizarteko maila guztietan zeudela erakusten digu.",
+          "Hebilla bat aurkitzeak gazteluan bizi izan ziren pertsonak irudikatzeko aukera ematen digu: harresietan zaintzarako prestatzen ziren soldaduak, mantentze-lanak egiten zituzten langileak edo barrutiko geletatik mugitzen ziren biztanleak. Objektu honek, txikia baina erresistentea, ekipamendu pertsonalak eguneroko bizitzan duen garrantzia islatzen du, eta gaztelua ez zela soilik defentsa-egitura bat gogorarazten digu, baizik eta jendea bizi zen espazio bat ere, non xehetasun bakoitzak komunitatearen funtzionamenduan eta antolamenduan laguntzen zuen."
+        ]
+      },
+      "objeto12": {
+        "title": "Burdinazko armadura brigantinoko plaka, letoizko errematxeekin apaindua",
+        "paragraphs": [
+          "Burdinazko plaka hau armadura brigantino baten parte zen, Erdi Aroko azken mendeetan asko erabiltzen zen gorputz babes mota bat. Burdin-jantzi brigantinoak metalezko plaka txiki ugariz osatuta zeuden, oihalezko edo larruzko jantzi baten barruan errematxatuta, eta armadura malgu eta erresistente bat sortzen zuten, plaka armadura osoak baino errazago mugitzeko. Sistema horrek babesa eta mugikortasuna uztartzen zituen, eta ezaugarri horiek funtsezkoak ziren borrokalarientzat, eremu txikietan borrokatu edo mugitu behar zutenentzat, hala nola mendi-bideetan edo gaztelu bateko harresietan.",
+          "Irulegiko gazteluan, horrelako piezak lurraldearen defentsari eta gotorlekua zaintzeko eta babesteko ardura zuten soldaduen presentziari lotuta zeuden. Armadura eginkizun militarrak betetzen zituztenen ekipamendu pertsonalaren parte zen, batez ere gatazka- edo alerta-uneetan. Gazteluaren erabilerak erakusten duen testuinguruan, gazteluaren segurtasuna haren horma eta dorreen mende zegoen, bai eta gaztelua defendatzen zuten pertsonen prestakuntzaren mende ere.",
+          "Armaduraren 46 plaka aurkitu dira, batez ere omenaldiko dorrearen indusketa-mailetan, eta horrek gazteluaren azken mendeetako dimentsio militarrera hurbiltzen gaitu. Pieza horietatik, gutxi batzuek baino ez dituzte letoizko errematxeak, gehienak burdinazkoak direnean, eta horrek defentsa pertsonaleko elementuen estetikaz edo nolabaiteko nabarmenkeriaz hitz egiten digu. Defendatzaileak guardia baten aurretik hornitzen edo balizko mehatxu baterako prestatzen imajinatzeko aukera ematen digu. Pieza honek Erdi Aroko defentsa-tekniken bilakaera sinbolizatzen du, eta harrizko hormen atzean bere lurraldea babesteko eta gotorlekuaren inguruko ingurunearen kontrola mantentzeko komunitate antolatu bat zegoela gogorarazten digu."
+        ]
+      }
+    }
+  },
+  "objects": {
+    "title": "Irulegi - Objektuak",
+    "heading": "OBJEKTUAK",
+    "back": "← Itzuli",
+    "buttons": {
+      "objeto1": "Beirazko besoko zatia",
+      "objeto2": "Zeramika-fitxa",
+      "objeto3": "Lisatzeko harria",
+      "objeto4": "Harrizko errota zirkularraren zatia",
+      "objeto5": "Lantza punta",
+      "objeto6": "Irulegiko eskua",
+      "objeto7": "Erdi Aroko aizto-orria",
+      "objeto8": "Hezur-dadoa",
+      "objeto9": "Erdi Aroko burdinazko balezta-dardoa",
+      "objeto10": "Erdi Aroko burdinazko iltzea",
+      "objeto11": "Erdi Aroko burdinazko belarria",
+      "objeto12": "Burdinazko armadura brigantinoko plaka, letoizko errematxeekin apaindua"
+    }
+  },
+  "script": {
+    "https-error": "Errealitate Areagotuak konexio seguru bat (HTTPS) behar du.",
+    "mobile-error": "Errealitate Areagotua gailu mugikorretan (Android edo IOS) bakarrik dago eskuragarri"
+  }
+}

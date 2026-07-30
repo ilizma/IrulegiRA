@@ -4,25 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Irulegi - dos tiempos, dos guerras / bi garai, bi guda</title>
-    <style>@import url("style.css?v=11.0");</style>
+    <style>@import url("style.css?v=12.0");</style>
 </head>
 <body>
+    <div class="lang-switch">
+        <button class="lang-btn" id="lang-btn" onclick="toggleLanguage()">ES</button>
+    </div>
     <div class="container">
         <h1>IRULEGI</h1>
-        <p class="subtitle">DOS TIEMPOS, DOS GUERRAS / BI GARAI, BI GUDA</p>
+        <p class="subtitle" data-i18n="index.subtitle">DOS TIEMPOS, DOS GUERRAS / BI GARAI, BI GUDA</p>
         
         <div class="button-container">
             <button class="ar-button" onclick="startAR('fort')">
                 <img src="images/img_fort.png" alt="Fort icon" class="button-img">
-                <span>Poblado / Herrixka</span>
+                <span data-i18n="index.buttons.fort">Poblado / Herrixka</span>
             </button>
             <button class="ar-button" onclick="startAR('castle')">
                 <img src="images/img_castle.png" alt="Castle icon" class="button-img">
-                <span>Castillo / Gaztelua</span>
+                <span data-i18n="index.buttons.castle">Castillo / Gaztelua</span>
             </button>
             <button class="ar-button" onclick="window.location.href='objects.html'">
                 <img src="images/img_objects.png" alt="Objects icon" class="button-img">
-                <span>Objetos / Objektuak</span>
+                <span data-i18n="index.buttons.objects">Objetos / Objektuak</span>
             </button>
         </div>
     </div>
@@ -49,8 +52,32 @@
 
     <footer class="logos-footer">
         <img src="images/logos.png" alt="Logos institucionales" class="footer-image">
-        <p class="grant-text">Esta iniciativa ha contado con una subvención enmarcada en el Plan de Recuperación, Transformación y Resiliencia - Financiado por la Unión Europea-NextGeneration EU, dentro del Plan de Sostenibilidad Turística en Destino Comarca Pamplona Rural.</p>
+        <p class="grant-text" data-i18n="index.footer.grant-text">Esta iniciativa ha contado con una subvención enmarcada en el Plan de Recuperación, Transformación y Resiliencia - Financiado por la Unión Europea-NextGeneration EU, dentro del Plan de Sostenibilidad Turística en Destino Comarca Pamplona Rural.</p>
     </footer>
+    <script src="lang.js?v=3.1"></script>
+    <script>
+        // Override applyTranslations for index page
+        function applyTranslations() {
+            document.title = translations.index.title;
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const keys = key.split('.');
+                let value = translations;
+                for (const k of keys) {
+                    if (value[k]) {
+                        value = value[k];
+                    } else {
+                        value = null;
+                        break;
+                    }
+                }
+                if (value) {
+                    el.textContent = value;
+                }
+            });
+        }
+    </script>
     <script src="script.js?v=12.0"></script>
 </body>
 </html>
