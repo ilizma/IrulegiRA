@@ -1,24 +1,6 @@
 {
   "ar-viewer": {
-    "loader-text": "Preparando experiencia...",
-    "start-btn": "▶ Iniciar AR",
-    "hint-text": "Apunta con la cámara a la maqueta",
-    "calib": {
-      "pos": "POS",
-      "rot": "ROT",
-      "scl": "SCL",
-      "copy": "COPIAR VALORES",
-      "reset": "RESET"
-    },
-    "loading-messages": {
-      "vision-engine": "Cargando motor de visión...",
-      "system-error": "Sistema MindAR no registrado. Comprueba tu conexión.",
-      "camera-activated": "Cámara activada",
-      "permissions": "Solicitando permisos...",
-      "generic-error": "Vaya, algo ha fallado",
-      "retry": "REINTENTAR",
-      "copied": "Valores copiados al portapapeles:\n\n"
-    }
+    "loader-text": "Preparando experiencia..."
   },
   "index": {
     "title": "Irulegi - dos tiempos, dos guerras",
@@ -132,7 +114,7 @@
       "objeto12": {
         "title": "Placa de armadura brigantina de hierro decorada con remaches de latón",
         "paragraphs": [
-          "del recinto. Este objeto, pequeño pero resistente, refleja la importancia del equipamiento personal en la vida diaria y nos recuerda que el castillo no era solo una estructura defensiva, sino también un espacio habitado donde cada detalle contribuía al funcionamiento y la organización de la comunidad.",
+          "Esta placa de hierro formaba parte de una armadura brigantina, un tipo de protección corporal muy utilizado en los últimos siglos de la Edad Media. Las brigantinas estaban compuestas por numerosas pequeñas placas metálicas remachadas en el interior de una prenda de tela o cuero, creando una armadura flexible y resistente que permitía moverse con mayor facilidad que las armaduras completas de placas. Este sistema combinaba protección y movilidad, cualidades esenciales para los combatientes que debían luchar o desplazarse en espacios reducidos, como los caminos de montaña o las murallas de un castillo.",
           "En el castillo de Irulegi, piezas como esta estaban vinculadas a la defensa del territorio y a la presencia de soldados encargados de vigilar y proteger la fortaleza. La armadura era parte del equipamiento personal de quienes desempeñaban funciones militares, especialmente en momentos de conflicto o de alerta. Su uso refleja un contexto en el que la seguridad del castillo dependía tanto de sus muros y torres como de la preparación de las personas que lo defendían.",
           "Se han hallado 46 placas de armadura, ubicadas sobre todo en niveles de excavación de la torre del homenaje, lo que nos acerca a la dimensión militar del castillo en sus últimos siglos de ocupación. De estas piezas, solamente unas pocas presentan remaches de latón, cuando la mayoría son de hierro, lo que nos habla de la estética o cierta ostentación en los elementos defensivos personales. Nos permite imaginar a los defensores equipándose antes de una guardia o preparándose para una posible amenaza. Esta pieza simboliza la evolución de las técnicas defensivas medievales y nos recuerda que, tras los muros de piedra, existía una comunidad organizada para proteger su territorio y mantener el control sobre el entorno que rodeaba la fortaleza."
         ]

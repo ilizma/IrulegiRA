@@ -1,0 +1,23 @@
+/* ==========================================================
+   qr-style.css — estilos de qr.html (página de redirección)
+   Recordar subir este archivo al hosting tras cada cambio
+   y actualizar su ?v= en qr.html (cache-busting).
+   ========================================================== */
+
+body {
+    margin: 0; padding: 0; width: 100%; height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    background: #9d6d6d; color: white;
+    font-family: sans-serif; text-align: center;
+}
+
+.spinner {
+    border: 4px solid rgba(255,255,255,0.3);
+    border-radius: 50%; border-top: 4px solid white;
+    width: 36px; height: 36px;
+    animation: spin 1s linear infinite; margin: 0 auto 16px;
+}
+
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+p { margin: 0; font-size: 16px; }

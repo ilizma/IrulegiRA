@@ -1,24 +1,6 @@
 {
   "ar-viewer": {
-    "loader-text": "Experientzia prestatzen...",
-    "start-btn": "▶ AR abiarazi",
-    "hint-text": "Zuzendu kamera modeloari",
-    "calib": {
-      "pos": "POS",
-      "rot": "ROT",
-      "scl": "SCL",
-      "copy": "KOPIATU BALIOAK",
-      "reset": "BERRETSI"
-    },
-    "loading-messages": {
-      "vision-engine": "Ikusmen motorra kargatzen...",
-      "system-error": "MindAR sistema erregistratu gabe. Zure konexioa egiaztatu.",
-      "camera-activated": "Kamera aktibatuta",
-      "permissions": "Baimenak eskatzen...",
-      "generic-error": "Ai ene, zerbait gaizki joan da",
-      "retry": "BERRIRO SAIATU",
-      "copied": "Balioak arbelera kopiatuak:\n\n"
-    }
+    "loader-text": "Experientzia prestatzen..."
   },
   "index": {
     "title": "Irulegi - bi garai, bi guda",

@@ -6,20 +6,6 @@
     --btn-shadow: rgba(0, 0, 0, 0.2);
 }
 
-@font-face {
-    font-family: 'FuturaBook';
-    src: url('fonts/FuturaBook.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Futura';
-    src: url('fonts/Futura.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -41,33 +27,6 @@ body {
     min-height: 100dvh;
     padding: 20px;
     position: relative;
-}
-
-.lang-switch {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-}
-
-.lang-btn {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    cursor: pointer;
-    backdrop-filter: blur(5px);
-    transition: all 0.2s;
-    font-family: 'FuturaBook', sans-serif;
-}
-
-.lang-btn:active {
-    transform: scale(0.95);
-    background: rgba(255, 255, 255, 0.4);
 }
 
 .container {
@@ -286,7 +245,10 @@ p {
     transform: scale(0.95);
 }
 
-model-viewer {
-    width: 100%;
-    height: 100%;
+.ar-viewer-hidden {
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    position: absolute;
+    pointer-events: none;
 }
