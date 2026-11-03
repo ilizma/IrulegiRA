@@ -39,5 +39,6 @@ async function startAR(modelId) {
     }
 
     // If everything is fine, redirect to the viewer
-    window.location.href = `ar-viewer.html?model=${modelId}`;
+    // (v=31 fuerza a recargar el HTML del visor y no usar la copia cacheada)
+    window.location.href = `ar-viewer.html?model=${modelId}&v=31`;
 }

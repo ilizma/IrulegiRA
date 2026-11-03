@@ -1,6 +1,7 @@
 {
   "ar-viewer": {
     "loader-text": "Preparando experiencia...",
+    "start-btn": "▶ Iniciar AR",
     "hint-text": "Apunta con la cámara a la maqueta",
     "calib": {
       "pos": "POS",

@@ -1,6 +1,7 @@
 {
   "ar-viewer": {
     "loader-text": "Experientzia prestatzen...",
+    "start-btn": "▶ AR abiarazi",
     "hint-text": "Zuzendu kamera modeloari",
     "calib": {
       "pos": "POS",

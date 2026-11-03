@@ -1,270 +1,348 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Irulegi - AR</title>
-    
-    <link rel="stylesheet" href="ar-style.css?v=9.0">
-    
-    <!-- A-Frame first -->
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+    <!-- Librerías SELF-HOSTED (mismas que el MVP que funciona en el móvil). -->
+    <script src="./libs/mindar-image.prod.js"></script>
+    <script src="./libs/aframe.min.js"></script>
+    <script src="./libs/mindar-image-aframe.prod.js"></script>
+
+    <!-- Estilos en archivo aparte (subir también al hosting al actualizar) -->
+    <link rel="stylesheet" href="ar-style.css?v=31">
 </head>
 <body>
+
+    <!-- Pantalla de carga (se oculta sola cuando la cámara está lista) -->
     <div id="custom-loader">
         <div class="spinner"></div>
-        <p id="loader-text" data-i18n="ar-viewer.loader-text">Preparando experiencia... / Experientzia prestatzen...</p>
-        <div id="loader-subtext" style="font-size: 12px; margin-top: 10px; opacity: 0.7;"></div>
+        <p data-i18n="ar-viewer.loader-text">Preparando experiencia...</p>
+        <div id="loader-ver">visor v31</div>
+        <div id="loader-diag">Iniciando…</div>
     </div>
 
-    <div class="ui-overlay">
-        <a href="index.html" class="back-btn" id="btn-back">✕</a>
-        <div class="scanning-hint" id="hint-text" data-i18n="ar-viewer.hint-text">Apunta con la cámara a la maqueta / Zuzendu kamera modeloari</div>
-    </div>
-
+    <!-- UI -->
+    <a href="index.html" class="back-btn">✕</a>
     <div class="lang-switch">
         <button class="lang-btn" id="lang-btn" onclick="toggleLanguage()">ES</button>
     </div>
-
-    <!-- Panel de Calibración (oculto por defecto) -->
-    <div id="calib-panel" class="calib-panel" style="display:none;">
-        <div class="calib-group">
-            <span class="calib-label" data-i18n="ar-viewer.calib.pos">POS</span>
-            <button onclick="move('x', -0.005)">X-</button>
-            <button onclick="move('x', 0.005)">X+</button>
-            <button onclick="move('y', -0.005)">Y-</button>
-            <button onclick="move('y', 0.005)">Y+</button>
-            <button onclick="move('z', -0.005)">Z-</button>
-            <button onclick="move('z', 0.005)">Z+</button>
-        </div>
-        <div class="calib-group">
-            <span class="calib-label" data-i18n="ar-viewer.calib.rot">ROT</span>
-            <button onclick="rotate('x', -0.5)">X-</button>
-            <button onclick="rotate('x', 0.5)">X+</button>
-            <button onclick="rotate('y', -0.5)">Y-</button>
-            <button onclick="rotate('y', 0.5)">Y+</button>
-            <button onclick="rotate('z', -0.5)">Z-</button>
-            <button onclick="rotate('z', 0.5)">Z+</button>
-        </div>
-        <div class="calib-group">
-            <span class="calib-label" data-i18n="ar-viewer.calib.scl">SCL</span>
-            <button onclick="scaleModel(-0.005)">-</button>
-            <button onclick="scaleModel(0.005)">+</button>
-        </div>
-        <div class="calib-footer">
-            <button onclick="copyValues()" class="copy-btn" data-i18n="ar-viewer.calib.copy">COPIAR VALORES</button>
-            <button onclick="resetValues()" class="reset-btn" data-i18n="ar-viewer.calib.reset">RESET</button>
-        </div>
+    <div id="status-pill">Apunta al marcador</div>
+    <button id="settings-btn" title="Ajustes">⚙️</button>
+    <div id="settings-panel">
+        <label><span>Escala</span><span id="valScale">2.64</span></label>
+        <input type="range" id="scaleSlider" min="0.01" max="5" step="0.01" value="2.64">
+        <label><span>Altura</span><span id="valHeight">-0.05</span></label>
+        <input type="range" id="heightSlider" min="-1" max="2" step="0.05" value="-0.05">
     </div>
 
-    <a-scene 
-        id="ar-scene"
-        mindar-image="autoStart: false; uiScanning: #hint-text; uiLoading: no;" 
-        embedded
-        color-space="sRGB" 
-        renderer="colorManagement: true, physicallyCorrectLights: true, alpha: true" 
-        vr-mode-ui="enabled: false" 
+    <!-- Escena AR (misma config que el MVP) -->
+    <a-scene
+        mindar-image="imageTargetSrc: ./mind/targets_castle.mind?v=31; uiLoading: no; uiScanning: no; uiError: no; autoStart: true; filterMinCF: 0.000001; filterBeta: 0.0001;"
+        color-space="sRGB"
+        renderer="colorManagement: true, physicallyCorrectLights; precision: highp;"
+        vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
-        
-        <a-assets>
-            <a-asset-item id="model-asset" src=""></a-asset-item>
-        </a-assets>
+
+        <script>
+        // Seleccionar el .mind correcto ANTES de que A-Frame inicialice el componente
+        (function () {
+            var mid = new URLSearchParams(window.location.search).get('model') || 'castle';
+            var minds = {
+                fort:   './mind/targets_fort.mind?v=31',
+                castle: './mind/targets_castle.mind?v=31'
+            };
+            var mindSrc = minds[mid] || minds.castle;
+            document.querySelector('a-scene').setAttribute(
+                'mindar-image',
+                'imageTargetSrc: ' + mindSrc + '; uiLoading: no; uiScanning: no; uiError: no; autoStart: true; filterMinCF: 0.000001; filterBeta: 0.0001;'
+            );
+        })();
+        </script>
+
+        <a-entity light="type: ambient; color: #ffffff; intensity: 0.9"></a-entity>
+        <a-entity light="type: directional; color: #ffffff; intensity: 1.0" position="1 2 1"></a-entity>
+        <a-entity light="type: directional; color: #ffffff; intensity: 0.6" position="-1 1 -1"></a-entity>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-        <a-entity id="example-target" mindar-image-target="targetIndex: 0">
-            <!-- Calibración envolvente -->
-            <a-entity id="calibracion-modelo" position="0 0 0" rotation="0 0 0" scale="1 1 1">
-                <a-gltf-model 
-                    id="ar-model"
-                    src="#model-asset" 
-                    rotation="0 0 0" 
-                    position="0 0 0" 
-                    scale="0.1 0.1 0.1">
-                </a-gltf-model>
+        <a-entity id="arAnchor" mindar-image-target="targetIndex: 0">
+            <a-entity id="scaler" position="0 -0.05 0" scale="1 1 1">
+                <a-gltf-model id="glbModel" src="./models/Castle.glb"
+                              position="0 0 0"
+                              scale="0.5 0.5 0.5"></a-gltf-model>
             </a-entity>
         </a-entity>
     </a-scene>
 
-    <script src="lang.js?v=3.1"></script>
+    <script src="lang.js?v=31.0"></script>
     <script>
-        let t = {}; // Translation cache for dynamic texts
-        
-        // Override applyTranslations for ar-viewer page
-        function applyTranslations() {
-            t = translations['ar-viewer'];
-            
-            // Update static elements with data-i18n
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                const keys = key.split('.');
-                let value = translations;
-                for (const k of keys) {
-                    if (value[k]) {
-                        value = value[k];
-                    } else {
-                        value = null;
-                        break;
+    (function () {
+        // ---------- i18n ----------
+        window.applyTranslations = function () {
+            document.querySelectorAll('[data-i18n]').forEach(function (el) {
+                var keys = el.getAttribute('data-i18n').split('.');
+                var value = translations;
+                for (var i = 0; i < keys.length; i++) {
+                    value = value ? value[keys[i]] : null;
+                }
+                if (value) el.textContent = value;
+            });
+        };
+
+        var loader         = document.getElementById('custom-loader');
+        var settingsBtn    = document.getElementById('settings-btn');
+        var settingsPanel  = document.getElementById('settings-panel');
+        var statusPill     = document.getElementById('status-pill');
+        var scaler         = document.getElementById('scaler');
+        var scaleSlider    = document.getElementById('scaleSlider');
+        var heightSlider   = document.getElementById('heightSlider');
+        var valScale       = document.getElementById('valScale');
+        var valHeight      = document.getElementById('valHeight');
+        var uiShown        = false;
+
+        // ---------- Canvas transparente (igual que el MVP) ----------
+        function transparentCanvas() {
+            try {
+                var scene = document.querySelector('a-scene');
+                if (scene && scene.renderer) {
+                    scene.renderer.setClearColor(0x000000, 0);
+                    if (typeof scene.renderer.setClearAlpha === 'function') {
+                        scene.renderer.setClearAlpha(0);
                     }
                 }
-                if (value) {
-                    el.textContent = value;
+            } catch (e) {}
+        }
+
+        function setPill(text, kind) {
+            statusPill.textContent = text;
+            statusPill.dataset.kind = kind || '';
+        }
+
+        // ---------- Mostrar UI (oculta el loader, muestra ajustes + pill) ----------
+        function showUI() {
+            if (uiShown) return;
+            uiShown = true;
+            loader.classList.add('hidden');
+            transparentCanvas();
+            settingsBtn.classList.add('show');
+            statusPill.classList.add('show');
+            setPill('Apunta al marcador');
+            // Forzar play del vídeo por si estaba pausado
+            var v = document.querySelector('video');
+            if (v) { try { v.play(); } catch (e) {} }
+        }
+
+        // ---------- Eventos de escena ----------
+        document.addEventListener('DOMContentLoaded', function () {
+            var scene = document.querySelector('a-scene');
+            if (!scene) return;
+            scene.addEventListener('renderstart', transparentCanvas);
+            scene.addEventListener('arReady', function () {
+                log('arReady ✓ — cámara activa');
+                transparentCanvas();
+                showUI();
+            });
+            scene.addEventListener('arError', function () {
+                log('arError ✗');
+                var p = loader.querySelector('p');
+                if (p) p.textContent = '⚠️ No se pudo abrir la cámara';
+            });
+        });
+        transparentCanvas();
+        [300, 1000, 2500].forEach(function (ms) { setTimeout(transparentCanvas, ms); });
+
+        // ---------- Diagnóstico en pantalla ----------
+        var diagEl = document.getElementById('loader-diag');
+        var logLines = [];
+        function log(msg) {
+            console.log('[AR]', msg);
+            logLines.push(msg);
+            while (logLines.length > 6) logLines.shift();
+            if (diagEl) diagEl.textContent = logLines.join('\n');
+        }
+        log('Script iniciado (v31)');
+
+        // Override getUserMedia para pre-calentar el stream
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            var origGUM = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+            navigator.mediaDevices.getUserMedia = function (constraints) {
+                log('getUserMedia llamado…');
+                return origGUM(constraints).then(function (stream) {
+                    var tracks = stream.getVideoTracks();
+                    log('getUserMedia OK · ' + tracks.length + ' track · ' + (tracks[0] ? tracks[0].label : '?'));
+                    // Pre-calentar: crear video temporal y esperar loadedmetadata
+                    return new Promise(function (resolve) {
+                        var warmV = document.createElement('video');
+                        warmV.muted = true;
+                        warmV.setAttribute('playsinline', '');
+                        warmV.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0;pointer-events:none;z-index:-1';
+                        warmV.srcObject = stream;
+                        document.body.appendChild(warmV);
+                        var done = false;
+                        var finish = function () {
+                            if (done) return; done = true;
+                            log('Pre-warm OK · ' + warmV.videoWidth + 'x' + warmV.videoHeight);
+                            try { warmV.pause(); } catch(e) {}
+                            warmV.remove();
+                            resolve(stream);
+                        };
+                        warmV.addEventListener('loadedmetadata', function () {
+                            log('Pre-warm: loadedmetadata');
+                            // Dar 100ms más para que los frames fluyan
+                            setTimeout(finish, 100);
+                        });
+                        warmV.play().catch(function () {});
+                        // Timeout: si no carga en 4s, devolver igualmente
+                        setTimeout(finish, 4000);
+                    });
+                }).catch(function (err) {
+                    log('getUserMedia ERROR: ' + err.name);
+                    throw err;
+                });
+            };
+        }
+
+        // ---------- Canvas oculto para forzar decodificación ----------
+        // Algunos Android no decodifican el vídeo salvo que se renderice a un canvas
+        var forceCanvas = document.createElement('canvas');
+        forceCanvas.style.cssText = 'position:fixed;top:0;left:0;width:2px;height:2px;opacity:0;pointer-events:none;z-index:-1';
+        document.body.appendChild(forceCanvas);
+        var forceCtx = forceCanvas.getContext('2d');
+
+        // ---------- Monitor + kicks rápidos (800ms) ----------
+        // El loader SOLO se oculta cuando arReady dispara
+        var kickAttempt = 0;
+        var lastKick = 0;
+        setInterval(function () {
+            if (uiShown) return;
+            var v = document.querySelector('video');
+            if (!v) { return; }
+            // Asegurar atributos
+            v.muted = true;
+            if (!v.hasAttribute('playsinline')) v.setAttribute('playsinline', '');
+            // Forzar play si está pausado
+            if (v.paused) {
+                try { var p = v.play(); if (p && p.catch) p.catch(function(){}); } catch (e) {}
+            }
+            // Dibujar al canvas oculto (fuerza decodificación en algunos Android)
+            if (v.videoWidth > 0) {
+                forceCanvas.width = v.videoWidth;
+                forceCanvas.height = v.videoHeight;
+                try { forceCtx.drawImage(v, 0, 0); } catch (e) {}
+            }
+            // Si hay stream pero no decodifica (rs:0), kicks cada 800ms
+            if (v.srcObject && v.readyState === 0) {
+                var now = Date.now();
+                if (now - lastKick > 800) {
+                    lastKick = now;
+                    kickAttempt = (kickAttempt % 3) + 1;  // ciclar 1→2→3→1→2→3…
+                    if (kickAttempt === 1) {
+                        log('KICK load()');
+                        try { v.load(); } catch(e) {}
+                    } else if (kickAttempt === 2) {
+                        log('KICK toggle srcObject');
+                        var stream = v.srcObject;
+                        v.srcObject = null;
+                        setTimeout(function () {
+                            v.srcObject = stream;
+                            try { v.play(); } catch(e) {}
+                        }, 150);
+                    } else {
+                        log('KICK pause+play');
+                        try {
+                            v.pause();
+                            setTimeout(function () {
+                                v.muted = true;
+                                v.play().catch(function(){});
+                            }, 150);
+                        } catch(e) {}
+                    }
                 }
+            } else if (v.readyState >= 1 && kickAttempt > 0) {
+                kickAttempt = 0;
+            }
+            // Log cada 2s (no cada 800ms para no saturar)
+            if (Date.now() % 2000 < 800) {
+                log((v.paused ? 'PAUSED' : 'PLAYING') +
+                    ' · rs:' + v.readyState +
+                    ' · src:' + (v.srcObject ? 'SÍ' : 'NO') +
+                    ' · ' + v.videoWidth + 'x' + v.videoHeight +
+                    (kickAttempt > 0 ? ' · kick:' + kickAttempt : ''));
+            }
+        }, 800);
+
+        // A los 10s, avisar al usuario si la cámara no ha arrancado
+        setTimeout(function () {
+            if (uiShown) return;
+            var p = loader.querySelector('p');
+            if (p) p.textContent = 'Si no carga, bloquea y desbloquea la pantalla';
+        }, 10000);
+
+        // ---------- Marcador ----------
+        function bindAnchor() {
+            var anchor = document.getElementById('arAnchor');
+            if (!anchor) return;
+            anchor.addEventListener('targetFound', function () {
+                setPill('✓ Marcador detectado', 'ok');
+                console.log('[AR] targetFound ✓');
+            });
+            anchor.addEventListener('targetLost', function () {
+                setPill('Apunta al marcador');
+                console.log('[AR] targetLost');
             });
         }
-        
-        // Funciones de calibración globales para los botones
-        window.move = (axis, delta) => {
-            const el = document.getElementById('calibracion-modelo');
-            const pos = el.getAttribute('position');
-            pos[axis] += delta;
-            el.setAttribute('position', pos);
-            console.log('Nueva posición:', pos);
+        setTimeout(bindAnchor, 300);
+
+        // ---------- Modelo ----------
+        var glbModel = document.getElementById('glbModel');
+        var params = new URLSearchParams(window.location.search);
+        var modelId = params.get('model') || 'castle';
+        var modelMap = { fort: './models/Fort.glb?v=31', castle: './models/Castle.glb?v=31' };
+        glbModel.setAttribute('src', modelMap[modelId] || modelMap.castle);
+
+        // Defaults por modelo
+        var defaults = {
+            fort:   { scale: 1.95, height: -0.35 },
+            castle: { scale: 2.64, height: -0.05 }
         };
+        var def = defaults[modelId] || defaults.castle;
+        scaleSlider.value = def.scale;
+        heightSlider.value = def.height;
+        valScale.textContent = def.scale.toFixed(2);
+        valHeight.textContent = def.height.toFixed(2);
 
-        window.rotate = (axis, delta) => {
-            const el = document.getElementById('calibracion-modelo');
-            const rot = el.getAttribute('rotation');
-            rot[axis] += delta;
-            el.setAttribute('rotation', rot);
-            console.log('Nueva rotación:', rot);
-        };
-
-        window.scaleModel = (delta) => {
-            const el = document.getElementById('calibracion-modelo');
-            const s = el.getAttribute('scale');
-            s.x += delta;
-            s.y += delta;
-            s.z += delta;
-            el.setAttribute('scale', s);
-            console.log('Nueva escala:', s);
-        };
-
-        window.copyValues = () => {
-            const el = document.getElementById('calibracion-modelo');
-            const values = {
-                position: el.getAttribute('position'),
-                rotation: el.getAttribute('rotation'),
-                scale: el.getAttribute('scale')
-            };
-            const json = JSON.stringify(values, null, 2);
-            navigator.clipboard.writeText(json).then(() => {
-                alert(t['loading-messages'].copied + json);
-            });
-        };
-
-        window.resetValues = () => {
-            const el = document.getElementById('calibracion-modelo');
-            el.setAttribute('position', "0 0 0");
-            el.setAttribute('rotation', "0 0 0");
-            el.setAttribute('scale', "1 1 1");
-            console.log('Valores reseteados');
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const modelId = params.get('model') || 'fort';
-            const calibMode = params.get('calib') === '1';
-
-            if (calibMode) {
-                document.getElementById('calib-panel').style.display = 'block';
-            }
-
-            document.getElementById('btn-back').href = 'index.html';
-
-            // Configuración base de los modelos (ajustar aquí tras calibrar)
-            const CONFIG_RA = {
-                'fort': { 
-                    glb: 'models/Fort.glb', 
-                    mind: 'mind/targets_fort.mind',
-                    // Valores iniciales (se pueden ajustar tras calibrar)
-                    offset: {
-                        position: "0 0 0",
-                        rotation: "0 0 0",
-                        scale: "0.5 0.5 0.5" // El scale que ya tenías para fort
-                    }
-                },
-                'castle': { 
-                    glb: 'models/Castle.glb', 
-                    mind: 'mind/targets_castle.mind',
-                    offset: {
-                        position: "0 0 0",
-                        rotation: "0 0 0",
-                        scale: "1 1 1"
-                    }
-                }
-            };
-
-            const data = CONFIG_RA[modelId];
-            const sceneEl = document.getElementById('ar-scene');
-            const loader = document.getElementById('custom-loader');
-            const loaderText = document.getElementById('loader-text');
-            const loaderSubtext = document.getElementById('loader-subtext');
-            const calibEl = document.getElementById('calibracion-modelo');
-            const modelEl = document.getElementById('ar-model');
-
-            // Aplicar configuración inicial
-            calibEl.setAttribute('position', data.offset.position);
-            calibEl.setAttribute('rotation', data.offset.rotation);
-            calibEl.setAttribute('scale', data.offset.scale);
-
-            // Ajuste específico del modelo interno si es necesario (el original era 0.1)
-            modelEl.setAttribute('scale', '0.1 0.1 0.1');
-
-            // Configure MindAR attributes
-            sceneEl.setAttribute('mindar-image', `imageTargetSrc: ./${data.mind}; autoStart: true; uiScanning: #hint-text; uiLoading: no;`);
-            document.getElementById('model-asset').setAttribute('src', data.glb);
-            
-            const startExperience = async () => {
-                // Wait for translations to be ready
-                while (!t || Object.keys(t).length === 0) {
-                    await new Promise(resolve => setTimeout(resolve, 100));
-                }
-                
-                try {
-                    loaderSubtext.innerText = t['loading-messages']['vision-engine'];
-                    
-                    // Wait for the system to be available
-                    const checkSystem = () => {
-                        return sceneEl.systems && sceneEl.systems['mindar-image-system'];
-                    };
-
-                    let attempts = 0;
-                    while (!checkSystem() && attempts < 20) {
-                        await new Promise(r => setTimeout(r, 250));
-                        attempts++;
-                    }
-
-                    const mindarSystem = sceneEl.systems['mindar-image-system'];
-                    if (!mindarSystem) {
-                        throw new Error(t['loading-messages']['system-error']);
-                    }
-
-                    loaderText.innerText = t['loading-messages']['camera-activated'];
-                    loaderSubtext.innerText = t['loading-messages']['permissions'];
-                    
-                    // Start the system
-                    await mindarSystem.start();
-                    
-                    loader.style.transition = "opacity 0.5s";
-                    loader.style.opacity = "0";
-                    setTimeout(() => loader.style.display = 'none', 500);
-                } catch (err) {
-                    console.error("AR Error:", err);
-                    loaderText.innerText = t['loading-messages']['generic-error'];
-                    loaderSubtext.innerHTML = `${err.message}<br><br><button onclick="location.reload()" class="retry-btn">${t['loading-messages']['retry']}</button>`;
-                }
-            };
-
-            // Start the experience when the scene is loaded
-            if (sceneEl.hasLoaded) {
-                startExperience();
-            } else {
-                sceneEl.addEventListener('loaded', startExperience);
-            }
+        glbModel.addEventListener('model-loaded', function () {
+            log('Modelo cargado ✓');
         });
+        glbModel.addEventListener('model-error', function () {
+            log('model-error ✗');
+            setPill('⚠️ Error al cargar modelo', 'error');
+        });
+
+        // ---------- Ajustes ----------
+        settingsBtn.addEventListener('click', function () {
+            settingsPanel.classList.toggle('open');
+        });
+        function applyScale() {
+            var v = parseFloat(scaleSlider.value);
+            valScale.textContent = v.toFixed(2);
+            scaler.setAttribute('scale', v + ' ' + v + ' ' + v);
+        }
+        function applyHeight() {
+            var v = parseFloat(heightSlider.value);
+            valHeight.textContent = v.toFixed(2);
+            scaler.setAttribute('position', '0 ' + v + ' 0');
+        }
+        scaleSlider.addEventListener('input', applyScale);
+        heightSlider.addEventListener('input', applyHeight);
+        applyScale();
+        applyHeight();
+    })();
     </script>
 </body>
 </html>
